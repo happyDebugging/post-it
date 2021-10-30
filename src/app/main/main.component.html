@@ -1,17 +1,14 @@
-<!-- <div *ngFor="let c of count; let i=index;"> -->
+<!-- <div *ngFor="let c of count; let i=index;">
 
   <mat-grid-list cols="4" rowHeight="35rem">
-    <mat-grid-tile 
-    *ngFor="let c of count"
-    [colspan]="1"
-    [rowspan]="1"
-    [style.background]="">
+
+    <mat-grid-tile *ngFor="let c of count" [colspan]="1" [rowspan]="1" [style.background]="">
 
       <mat-card class="example-card">
         <mat-card-header>
-          <!-- <div mat-card-avatar class="example-header-image"></div> -->
-          <mat-card-title>Shiba Inu</mat-card-title>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          <div mat-card-avatar class="example-header-image"></div> -->
+          <!-- <mat-card-title>Shiba Inu</mat-card-title>-->
+          <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
@@ -31,6 +28,71 @@
       </mat-card>
 
     </mat-grid-tile>
+
   </mat-grid-list>
 
-<!-- </div> -->
+</div> -->
+
+
+<div class="section lime lighten-5">
+  <div class="container">
+
+    <!-- <a href="#modal1" class="waves-effect waves-light btn modal-trigger">+ Δημιουργία αγγελιας</a> -->
+
+    <div class="row">
+      <div *ngFor="let c of count; let i = index;">
+        <div class="col s3">
+
+          <!-- <div class="card-panel teal">
+            <span class="white-text">
+              {{ c }}
+            </span>
+          </div> -->
+
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <!-- <mat-card-title>Shiba Inu</mat-card-title>-->
+              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>
+    
+            <mat-card-content>
+              <p>
+                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                bred for hunting.
+                {{ c }}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <mat-tab-group>
+                <mat-tab label="Περιοχή">Περιοχή</mat-tab>
+                <mat-tab label="Email">Email</mat-tab>
+                <mat-tab label="Τηλ.">Τηλ.</mat-tab>
+              </mat-tab-group>
+            </mat-card-actions>
+          </mat-card>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="card">
+      <div class="card-content">
+        <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
+          little markup to use effectively.</p>
+      </div>
+      <div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+          <li class="tab"><a href="#test4">Test 1</a></li>
+          <li class="tab"><a class="active" href="#test5">Test 2</a></li>
+          <li class="tab"><a href="#test6">Test 3</a></li>
+          <li class="indicator" style="left: 89px; right: 38px;"></li>
+        </ul>
+      </div>
+      <div class="card-content grey lighten-4">
+        <div id="test4" style="display: none;">Test 1</div>
+        <div id="test5" class="active">Test 2</div>
+        <div id="test6" style="display: none;">Test 3</div>
+      </div>
+    </div> -->

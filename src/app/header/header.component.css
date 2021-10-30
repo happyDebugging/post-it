@@ -1,4 +1,4 @@
-.header {
+/* .header {
     background-image: url("src/assets/images/post-it-notes.jpeg");
     height: 20rem;
     align-items: center;
@@ -7,4 +7,28 @@
 .center{
     width: 25rem;
     margin: 10px auto;
-  }
+  } */
+
+
+  .header-section {
+    background-image: url("src/assets/images/post-it-notes.jpeg");
+    background-size: cover;
+    height: 15rem;
+}
+
+.input-field {
+    background-color: rgba(194, 255, 219, 0.418);
+    color: rgb(255, 255, 255) !important;
+}
+
+/* label focus color */
+.input-field input:focus + label {
+    color: rgb(255, 255, 255) !important;
+}
+
+/* label underline focus color */
+.row .input-field input:focus {
+    border-bottom: 1px solid rgb(255, 255, 255) !important;
+    box-shadow: 0 1px 0 0 rgb(255, 255, 255) !important;
+    color: rgb(255, 255, 255) !important;
+}
