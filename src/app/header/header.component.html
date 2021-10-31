@@ -1,12 +1,77 @@
-<!-- <mat-grid-list cols="1" rowHeight="15rem">
-    <div class="header">
+<ng-template #occurredAt let-modal>
+    <h1 mat-dialog-title>Δημιουργία νέας αγγελίας</h1>
+    <div mat-dialog-content>
 
-        <mat-grid-tile>
-            <button class="center" mat-stroked-button color="basic" (click)="openDialog()">Δημιουργία Αγγελίας</button>
-        </mat-grid-tile>
+        <div class="row center">
+            <div class="col ">
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Είδος Αγγελίας</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let jobSearchType of jobSearchTypes" [value]="jobSearchType">
+                            {{jobSearchType}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Επάγγελμα</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let jobType of jobTypesList" [value]="jobType">
+                            {{jobType}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Περιοχή</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let workingPlace of workingPlaces" [value]="workingPlace">
+                            {{workingPlace}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!-- <form class="example-form"> -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Όνομα</mat-label>
+                    <input matInput placeholder="Όνομα" [value]="userName">
+                    <!-- <textarea matInput placeholder="Όνομα" [value]="userName"></textarea> -->
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Τηλέφωνο</mat-label>
+                    <input matInput placeholder="Τηλέφωνο" [value]="userPhone">
+                    <!-- <textarea matInput placeholder="Τηλέφωνο" [value]="userPhone"></textarea> -->
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" [value]="userEmail">
+                    <!-- <textarea matInput placeholder="Email" [value]="userEmail"></textarea> -->
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Περιγραφή αγγελίας</mat-label>
+                    <textarea matInput placeholder="Περιγραφή αγγελίας" [value]="userPost"></textarea>
+                </mat-form-field>
+                <!-- </form> -->
+            </div>
+        </div>
+
 
     </div>
-</mat-grid-list> -->
+    <div mat-dialog-actions>
+        
+        <div class="row center">
+            <button class="waves-effect waves-light btn-large" mat-dialog-close>Δημιουργία</button>
+        </div>
+        
+    </div>
+</ng-template>
+
+
+
 
 <div class="section white header-section">
     <div class="container-fluid">

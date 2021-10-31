@@ -11,6 +11,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './header/header.component';
@@ -34,7 +37,10 @@ import { FooterComponent } from './footer/footer.component';
     MatDialogModule,
     MatTabsModule,
     MatToolbarModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

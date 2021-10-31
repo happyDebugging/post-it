@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogueComponent implements OnInit {
 
+  jobSearchTypes: string[] = ['Αναζητώ Εργασία', 'Αναζητώ Εργαζόμενο'];
+
   constructor() { }
 
   ngOnInit(): void {

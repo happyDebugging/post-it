@@ -4,6 +4,8 @@
     min-width: 20rem;
     min-height: 20rem;
     margin: 3rem 3rem 3rem 3rem ;
+    padding: 3rem 3rem 3rem 3rem ;
+    position: relative;
   }
 
   .mat-card-content {
@@ -25,3 +27,38 @@
     min-width: 5px!important;
   }
   
+
+/* .card-panel {
+  max-width: 20rem;
+  max-height: 20rem;
+  min-width: 20rem;
+  min-height: 20rem;
+  position: relative;
+} */
+
+.card {
+  max-width: 19.5rem;
+  max-height: 20rem;
+  min-width: 18rem;
+  min-height: 20rem;
+  position: relative;
+}
+
+.card-content {
+  max-width: 19.5rem;
+  max-height: 15rem;
+  min-width: 18rem;
+  min-height: 15rem;
+  position: relative;
+  overflow-y:scroll;
+}
+
+.sticky-card-details {
+  position:absolute;
+  bottom: 0;
+  height: 50px;
+}
+
+.mat-form-field {
+  margin: 1rem;
+}
