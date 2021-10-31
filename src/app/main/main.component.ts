@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { PostItDetails } from '../shared/models/post-it-details.model';
+import { DbFunctionService } from '../shared/services/db-functions.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -7,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  count: number[] = [1,2,3,4,5,6,7,8,9,10,11,12];
+  posts: PostItDetails[] = [];
 
   jobSearchTypes: string[] = ['Αναζητώ Εργασία', 'Αναζητώ Εργαζόμενο'];
   jobTypesList: string[] = ['Νοσηλευτής', 'Καθαρισμός χώρου', 'Ιατρός', 'Υδραυλικός', 'Φύλαξη ηλικιωμένων', 'Εστίαση', 'Πληροφορική'];
@@ -89,12 +93,68 @@ export class MainComponent implements OnInit {
     'Μάνδρα',
     'Τύρναβος',
     'Γλυκά Νερά'
-    ];
+  ];
 
-  constructor() { }
+  getPosts: Subscription = new Subscription;
+
+  constructor(private dbFunctionService: DbFunctionService) { }
 
   ngOnInit(): void {
+    this.onGetPosts();
   }
 
-  
+  onGetPosts() {
+    let postItDetails = new Array<PostItDetails>();
+
+    this.getPosts = this.dbFunctionService.getPostsFromDb()
+      .pipe(map((response: any) => {
+        const postsArray: PostItDetails[] = [];
+
+        for (const key in response) {
+          if (response.hasOwnProperty(key)) {
+            postsArray.push({ ...response[key], id: key })
+          }
+        }
+        return postsArray;
+      }))
+      .subscribe(
+        (res: any) => {
+          if ((res != null) || (res != undefined)) {
+            //console.log(res)
+            const responseData = new Array<PostItDetails>(...res);
+
+            for (const data of responseData) {
+              const resObj = new PostItDetails();
+
+              resObj.UserName = data.UserName;
+              resObj.Phone = data.Phone;
+              resObj.Email = data.Email;
+              resObj.Notes = data.Notes;
+              resObj.JobName = data.JobName;
+              resObj.JobSearchType = data.JobSearchType;
+              resObj.Place = data.Place;
+
+              postItDetails.push(resObj);
+              this.posts.push(resObj);
+            }
+
+            //console.log(this.posts);
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+  }
+
+  onClearLog(postItDetails: PostItDetails) {
+    this.posts = [];
+  }
+
+  ngOnDestroy() {
+    if (this.getPosts && !this.getPosts.closed) {
+      this.getPosts.unsubscribe();
+    }
+  }
+
 }

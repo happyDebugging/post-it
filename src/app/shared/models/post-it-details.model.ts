@@ -1,8 +1,11 @@
 export class PostItDetails {
-    Id: number;
-    Notes: string;
-    UserName: string;
-    Email: string;
-    Phone: string;
-    Place: string;
+    Id?: number;
+    JobSearchType?: string;
+    Notes?: string;
+    UserName?: string;
+    JobName?: string;
+    Email?: string;
+    Phone?: string;
+    Place?: string;
+    Color?: string;
 }

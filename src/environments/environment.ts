@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  
+  postItRepoURL: 'https://post-it-4f3cb-default-rtdb.europe-west1.firebasedatabase.app/posts.json'
 };
 
 /*

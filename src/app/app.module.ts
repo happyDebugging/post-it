@@ -19,6 +19,9 @@ import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { FooterComponent } from './footer/footer.component';
+import { DbFunctionService } from './shared/services/db-functions.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import { FooterComponent } from './footer/footer.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
@@ -42,7 +47,9 @@ import { FooterComponent } from './footer/footer.component';
     MatFormFieldModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [
+    DbFunctionService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
