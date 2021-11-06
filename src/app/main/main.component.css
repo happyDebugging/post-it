@@ -7,17 +7,17 @@
 } */
 
 .card {
-  max-width: 19.5rem;
+  max-width: 22rem;
   max-height: 20rem;
-  min-width: 19.5rem;
+  min-width: 22rem;
   min-height: 20rem;
   position: relative;
 }
 
 .card-content {
-  max-width: 19.5rem;
+  max-width: 22rem;
   max-height: 15rem;
-  min-width: 19.5rem;
+  min-width: 22rem;
   min-height: 15rem;
   position: relative;
   overflow-y:scroll;
@@ -26,4 +26,17 @@
 .mat-form-field {
   margin: 1rem;
 }
+
+.card-action {
+  min-height: 10%!important;
+  padding: 0px 0px 10px 0px!important;
+  margin: 0px!important;
+}
+
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+  min-width: 33.3%!important;
+  min-height: 0px!important;
+  padding: 0px!important;
+  margin: 0px!important;
+ }
 

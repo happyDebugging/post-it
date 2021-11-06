@@ -8,8 +8,8 @@
     <div class="row center">
       <mat-form-field appearance="fill">
         <mat-label>Είδος Αγγελίας</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let jobSearchType of jobSearchTypes" [value]="jobSearchType">
+        <mat-select [(ngModel)]="jobType">
+          <mat-option *ngFor="let jobSearchType of jobSearchTypes" [value]="jobSearchType" (click)="refreshResults()">
             {{jobSearchType}}
           </mat-option>
         </mat-select>
@@ -17,8 +17,8 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Επάγγελμα</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let jobType of jobTypesList" [value]="jobType">
+        <mat-select [(ngModel)]="job">
+          <mat-option *ngFor="let jobType of jobTypesList" [value]="jobType" (click)="refreshResults()">
             {{jobType}}
           </mat-option>
         </mat-select>
@@ -26,29 +26,28 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Περιοχή</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let workingPlace of workingPlaces" [value]="workingPlace">
+        <mat-select [(ngModel)]="place">
+          <mat-option *ngFor="let workingPlace of workingPlaces" [value]="workingPlace" (click)="refreshResults()">
             {{workingPlace}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-  </div>
+    <!-- </div> -->
 
-  <br>
+    <br>
 
-  <div class="container-fluid">
+    <!-- <div class="container-fluid"> -->
     <div class="row">
       <div *ngFor="let post of posts; let i = index;">
-        <div class="col ">
-          <!--s3-->
+        <div class="col s12 m6 l4">
 
           <div class="row">
-            <div class="col s12 m6">
-              <div class="card lime lighten-4">
+            <div class="col s12">
+              <div class="card" [ngStyle]="{'background-color':post.Color === 'lime lighten-4' ? '#f0f4c3' : '#dcedc8' }">
                 <div class="card-content black-text">
                   <span class="card-title">
-                    <h3>{{ post.UserName }} - {{ post.JobName  }}</h3>
+                    <h3>{{ post.UserName }} - {{ post.JobName }}</h3>
                   </span>
                   <span class="black-text">
                     {{ post.Notes }}
@@ -56,9 +55,21 @@
                 </div>
                 <div class="card-action">
                   <mat-tab-group>
-                    <mat-tab label="Περιοχή">{{ post.Place }}</mat-tab>
-                    <mat-tab label="Email">{{ post.Email }}</mat-tab>
-                    <mat-tab label="Τηλ.">{{ post.Phone }}</mat-tab>
+                    <mat-tab label="Περιοχή">
+                      <div class="center">
+                        {{ post.Place }}
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Email">
+                      <div class="center">
+                        {{ post.Email }}
+                      </div>
+                    </mat-tab>
+                    <mat-tab label="Τηλ.">
+                      <div class="center">
+                        {{ post.Phone }}
+                      </div>
+                    </mat-tab>
                   </mat-tab-group>
                 </div>
               </div>
@@ -68,3 +79,5 @@
         </div>
       </div>
     </div>
+  </div>
+</div>

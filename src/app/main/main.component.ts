@@ -95,6 +95,14 @@ export class MainComponent implements OnInit {
     'Γλυκά Νερά'
   ];
 
+  jobType: string = "";
+  job: string = "";
+  place: string = "";
+
+  flagJobType: boolean = false;
+  flagJob: boolean = false;
+  flagPlace: boolean = false;
+
   getPosts: Subscription = new Subscription;
 
   constructor(private dbFunctionService: DbFunctionService) { }
@@ -134,10 +142,107 @@ export class MainComponent implements OnInit {
               resObj.JobSearchType = data.JobSearchType;
               resObj.Place = data.Place;
 
-              postItDetails.push(resObj);
-              this.posts.push(resObj);
-            }
+              console.log(this.jobType, this.job, this.place)
 
+              if (resObj.JobSearchType == this.jobType)
+                this.flagJobType = true;
+
+              if (resObj.JobName == this.job)
+                this.flagJob = true;
+
+              if (resObj.Place == this.place)
+                this.flagPlace = true;
+
+
+              if (this.jobType == '' && this.job == '' && this.place == '') {
+                if (!this.flagJobType && !this.flagJob && !this.flagPlace) {
+                  postItDetails.push(resObj);
+                  this.posts.push(resObj);
+
+                  this.flagJobType = false;
+                  this.flagJob = false;
+                  this.flagPlace = false;
+                }
+              }
+              else if (this.jobType == '' && this.job == '') {
+                if (!this.flagJobType && !this.flagJob && this.flagPlace) {
+                  postItDetails.push(resObj);
+                  this.posts.push(resObj);
+
+                  this.flagJobType = false;
+                  this.flagJob = false;
+                  this.flagPlace = false;
+                }
+              }
+              if (this.jobType == '' && this.place == '') {
+                if (!this.flagJobType && this.flagJob && !this.flagPlace) {
+                  postItDetails.push(resObj);
+                  this.posts.push(resObj);
+
+                  this.flagJobType = false;
+                  this.flagJob = false;
+                  this.flagPlace = false;
+                }
+              }
+              if (this.job == '' && this.place == '') {
+                if (this.flagJobType && !this.flagJob && !this.flagPlace) {
+                  postItDetails.push(resObj);
+                  this.posts.push(resObj);
+
+                  this.flagJobType = false;
+                  this.flagJob = false;
+                  this.flagPlace = false;
+                }
+              }
+              else if (this.jobType == '') {
+                if (!this.flagJobType && this.flagJob && this.flagPlace) {
+                  postItDetails.push(resObj);
+                  this.posts.push(resObj);
+
+                  this.flagJobType = false;
+                  this.flagJob = false;
+                  this.flagPlace = false;
+                }
+              }
+              else if (this.job == '') {
+                if (this.flagJobType && !this.flagJob && this.flagPlace) {
+                  postItDetails.push(resObj);
+                  this.posts.push(resObj);
+
+                  this.flagJobType = false;
+                  this.flagJob = false;
+                  this.flagPlace = false;
+                }
+              }
+              else if (this.place == '') {
+                if (this.flagJobType && this.flagJob && !this.flagPlace) {
+                  postItDetails.push(resObj);
+                  this.posts.push(resObj);
+
+                  this.flagJobType = false;
+                  this.flagJob = false;
+                  this.flagPlace = false;
+                }
+              }
+              else {
+                if (this.flagJobType && this.flagJob && this.flagPlace) {
+                  postItDetails.push(resObj);
+                  this.posts.push(resObj);
+
+                  this.flagJobType = false;
+                  this.flagJob = false;
+                  this.flagPlace = false;
+                }
+              }
+
+              if (resObj.JobSearchType == 'Αναζητώ Εργασία') {
+                resObj.Color = 'lime lighten-4';
+              }
+              else {
+                resObj.Color = 'light-green lighten-4';
+              }
+
+            }
             //console.log(this.posts);
           }
         },
@@ -147,7 +252,12 @@ export class MainComponent implements OnInit {
       );
   }
 
-  onClearLog(postItDetails: PostItDetails) {
+  async refreshResults() {
+    await this.onClearLog();
+    await this.onGetPosts();
+  }
+
+  onClearLog() {
     this.posts = [];
   }
 
