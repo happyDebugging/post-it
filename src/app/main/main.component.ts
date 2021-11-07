@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PostItDetails } from '../shared/models/post-it-details.model';
 import { DbFunctionService } from '../shared/services/db-functions.service';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -14,85 +15,32 @@ export class MainComponent implements OnInit {
   posts: PostItDetails[] = [];
 
   jobSearchTypes: string[] = ['Αναζητώ Εργασία', 'Αναζητώ Εργαζόμενο'];
-  jobTypesList: string[] = ['Νοσηλευτής', 'Καθαρισμός χώρου', 'Ιατρός', 'Υδραυλικός', 'Φύλαξη ηλικιωμένων', 'Εστίαση', 'Πληροφορική'];
-  workingPlaces: string[] = ['Αθήνα',
-    'Θεσσαλονίκη',
-    'Πάτρα',
-    'Ηράκλειο',
-    'Λάρισα',
-    'Βόλος',
-    'Ιωάννινα',
-    'Τρίκαλα',
-    'Χαλκίδα',
-    'Σέρρες',
-    'Αλεξανδρούπολη',
-    'Ξάνθη',
-    'Κατερίνη',
-    'Αγρίνιο',
-    'Καλαμάτα',
-    'Καβάλα',
-    'Χανιά',
-    'Λαμία',
-    'Κομοτηνή',
-    'Ρόδος',
-    'Δράμα',
-    'Βέροια',
-    'Κοζάνη',
-    'Καρδίτσα',
-    'Ρέθυμνο',
-    'Πτολεμαΐδα',
-    'Τρίπολη',
-    'Κόρινθος',
-    'Γέρακας',
-    'Γιαννιτσά',
-    'Μυτιλήνη',
-    'Χίος',
-    'Σαλαμίνα',
-    'Ελευσίνα',
-    'Κέρκυρα',
-    'Πύργος',
-    'Μέγαρα',
-    'Κιλκίς',
-    'Θήβα',
-    'Άργος',
-    'Άρτα',
-    'Άρτεμη (Λούτσα)',
-    'Λιβαδειά',
-    'Ωραιόκαστρο',
-    'Αίγιο',
-    'Κως',
-    'Κορωπί',
-    'Πρέβεζα',
-    'Σπάρτη',
-    'Νάουσα',
-    'Ορεστιάδα',
-    'Περαία',
-    'Έδεσσα',
-    'Φλώρινα',
-    'Αμαλιάδα',
-    'Παλλήνη',
-    'Θέρμη',
-    'Βάρη',
-    'Νέα Μάκρη',
-    'Αλεξάνδρεια',
-    'Παιανία',
-    'Καλύβια Θορικού',
-    'Ναύπλιο',
-    'Ναύπακτος',
-    'Καστοριά',
-    'Γρεβενά',
-    'Μεσολόγγι',
-    'Γάζι',
-    'Ιεράπετρα',
-    'Κάλυμνος (Πόθια)',
-    'Ραφήνα',
-    'Λουτράκι',
-    'Άγιος Νικόλαος',
-    'Ερμούπολη',
-    'Ιαλυσός',
-    'Μάνδρα',
-    'Τύρναβος',
-    'Γλυκά Νερά'
+  jobTypesList = [
+    { id: 1, text: 'Νοσηλευτής' },
+    { id: 2, text: 'Καθαρισμός χώρου' },
+    { id: 3, text: 'Ιατρός' },
+    { id: 4, text: 'Υδραυλικός' },
+    { id: 5, text: 'Φύλαξη ηλικιωμένων' },
+    { id: 6, text: 'Εστίαση' },
+    { id: 7, text: 'Πληροφορική' },
+  ];
+  workingPlacesList = [
+    // 'Αθήνα',
+    // 'Θεσσαλονίκη',
+    // 'Πάτρα',
+    // 'Ηράκλειο',
+    // 'Λάρισα',
+    // 'Βόλος',
+    // 'Ιωάννινα',
+    // 'Τρίκαλα',
+
+    { id: 1, place: 'Αθήνα' },
+    { id: 2, place: 'Θεσσαλονίκη' },
+    { id: 3, place: 'Πάτρα' },
+    { id: 4, place: 'Ηράκλειο' },
+    { id: 5, place: 'Λάρισα' },
+    { id: 6, place: 'Βόλος' },
+    { id: 7, place: 'Τρίκαλα' },
   ];
 
   jobType: string = "";
@@ -105,13 +53,58 @@ export class MainComponent implements OnInit {
 
   getPosts: Subscription = new Subscription;
 
+  filteredJobTypes?: any;
+  filteredWorkingPlaces?: any;
+
+  isLoadingResults: boolean = false;
+
   constructor(private dbFunctionService: DbFunctionService) { }
 
   ngOnInit(): void {
     this.onGetPosts();
+    this.filteredJobTypes = this.jobTypesList;
+    this.filteredWorkingPlaces = this.workingPlacesList;
   }
 
+  applyJobFilter(evt: string) {
+    evt = evt + '';
+    if (!evt) this.filteredJobTypes = this.jobTypesList;
+    else {
+      /** uses both id and text fields for extensive filtering (case insensitive) . can be tailored for custom needs */
+      this.filteredJobTypes = this.jobTypesList.filter(
+        (item) =>
+          item.id + '' === evt ||
+          item.text.toLocaleLowerCase().indexOf(evt.toLocaleLowerCase()) >= 0
+      );
+    }
+  }
+
+  applyPlacesFilter(evt: string) {
+    evt = evt + '';
+    if (!evt) this.filteredWorkingPlaces = this.workingPlacesList;
+    else {
+      /** uses both id and text fields for extensive filtering (case insensitive) . can be tailored for custom needs */
+      this.filteredWorkingPlaces = this.workingPlacesList.filter(
+        (itemm) =>
+          itemm.id + '' === evt ||
+          itemm.place.toLocaleLowerCase().indexOf(evt.toLocaleLowerCase()) >= 0
+      );
+    }
+  }
+
+  // public valueMapper = (key: any) => {
+  //   let selection = this.jobTypesList.find((e) => {
+  //     return e.id == key;
+  //   });
+  //   if (selection) {
+  //     return selection.text;
+  //   }
+  //   return;
+  // };
+
   onGetPosts() {
+    this.isLoadingResults = true;
+
     let postItDetails = new Array<PostItDetails>();
 
     this.getPosts = this.dbFunctionService.getPostsFromDb()
@@ -151,17 +144,17 @@ export class MainComponent implements OnInit {
 
               if (resObj.JobSearchType == this.jobType)
                 this.flagJobType = true;
-              else   
-               this.flagJobType = false;
+              else
+                this.flagJobType = false;
 
               if (resObj.JobName == this.job)
                 this.flagJob = true;
-              else   
+              else
                 this.flagJob = false;
 
               if (resObj.Place == this.place)
                 this.flagPlace = true;
-              else   
+              else
                 this.flagPlace = false;
 
               if (this.jobType == '' && this.job == '' && this.place == '') {
@@ -248,9 +241,11 @@ export class MainComponent implements OnInit {
             }
             //console.log(this.posts);
           }
+          this.isLoadingResults = false;
         },
         err => {
           console.log(err);
+          this.isLoadingResults = false;
         }
       );
   }
