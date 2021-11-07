@@ -25,4 +25,21 @@ export class DbFunctionService {
         return this.http.post(environment.postItRepoURL, postItDetails, options);
     }
 
+
+    getJobsListFromAdminDb() {
+        // let options: any = {
+        //     //params: {BoardId: boardId, SerialNumber: serialNumber}, 
+        //     observe: 'response'
+        // }
+        return this.http.get<string>(environment.postItAdminRepoURL + environment.jobNamesTable);
+    }
+
+    getWorkingPlacesListFromAdminDb() {
+        // let options: any = {
+        //     //params: {BoardId: boardId, SerialNumber: serialNumber}, 
+        //     observe: 'response'
+        // }
+        return this.http.get<string>(environment.postItAdminRepoURL + environment.workingPlacesTable);
+    }
+
 }

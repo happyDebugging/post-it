@@ -18,7 +18,7 @@
       <!-- <mat-form-field appearance="fill">
         <mat-label>Επάγγελμα</mat-label>
         <mat-select [(ngModel)]="job">
-          <mat-option *ngFor="let jobType of jobTypesList" [value]="jobType" (click)="refreshResults()">
+          <mat-option *ngFor="let jobType of jobNamesList" [value]="jobType" (click)="refreshResults()">
             {{jobType}}
           </mat-option>
         </mat-select>
@@ -31,8 +31,8 @@
           <mat-icon>close</mat-icon>
         </button>
         <mat-autocomplete #autoJobName="matAutocomplete">
-          <mat-option *ngFor="let job of filteredJobTypes" [value]="job.text" (click)="refreshResults()">
-            {{ job.text }}
+          <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName" (click)="refreshResults()">
+            {{ job.JobName }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -54,9 +54,9 @@
           <mat-icon>close</mat-icon>
         </button>
         <mat-autocomplete #autoPlace="matAutocomplete">
-          <mat-option *ngFor="let workingPlace of filteredWorkingPlaces" [value]="workingPlace.place"
+          <mat-option *ngFor="let workingPlace of filteredWorkingPlaces" [value]="workingPlace.Place"
             (click)="refreshResults()">
-            {{ workingPlace.place }}
+            {{ workingPlace.Place }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

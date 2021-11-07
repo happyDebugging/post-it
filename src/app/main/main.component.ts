@@ -4,6 +4,8 @@ import { PostItDetails } from '../shared/models/post-it-details.model';
 import { DbFunctionService } from '../shared/services/db-functions.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { JobNames } from '../shared/models/job-names.model';
+import { WorkingPlaces } from '../shared/models/working-places.model';
 
 @Component({
   selector: 'app-main',
@@ -15,16 +17,18 @@ export class MainComponent implements OnInit {
   posts: PostItDetails[] = [];
 
   jobSearchTypes: string[] = ['Αναζητώ Εργασία', 'Αναζητώ Εργαζόμενο'];
-  jobTypesList = [
-    { id: 1, text: 'Νοσηλευτής' },
-    { id: 2, text: 'Καθαρισμός χώρου' },
-    { id: 3, text: 'Ιατρός' },
-    { id: 4, text: 'Υδραυλικός' },
-    { id: 5, text: 'Φύλαξη ηλικιωμένων' },
-    { id: 6, text: 'Εστίαση' },
-    { id: 7, text: 'Πληροφορική' },
-  ];
-  workingPlacesList = [
+  // jobNamesList = [
+  //   { id: 1, text: 'Νοσηλευτής' },
+  //   { id: 2, text: 'Καθαρισμός χώρου' },
+  //   { id: 3, text: 'Ιατρός' },
+  //   { id: 4, text: 'Υδραυλικός' },
+  //   { id: 5, text: 'Φύλαξη ηλικιωμένων' },
+  //   { id: 6, text: 'Εστίαση' },
+  //   { id: 7, text: 'Πληροφορική' },
+  // ];
+  jobNamesList: JobNames[] = [];
+  workingPlacesList: WorkingPlaces[] = [];
+  // workingPlacesList = [
     // 'Αθήνα',
     // 'Θεσσαλονίκη',
     // 'Πάτρα',
@@ -33,15 +37,14 @@ export class MainComponent implements OnInit {
     // 'Βόλος',
     // 'Ιωάννινα',
     // 'Τρίκαλα',
-
-    { id: 1, place: 'Αθήνα' },
-    { id: 2, place: 'Θεσσαλονίκη' },
-    { id: 3, place: 'Πάτρα' },
-    { id: 4, place: 'Ηράκλειο' },
-    { id: 5, place: 'Λάρισα' },
-    { id: 6, place: 'Βόλος' },
-    { id: 7, place: 'Τρίκαλα' },
-  ];
+  //   { id: 1, place: 'Αθήνα' },
+  //   { id: 2, place: 'Θεσσαλονίκη' },
+  //   { id: 3, place: 'Πάτρα' },
+  //   { id: 4, place: 'Ηράκλειο' },
+  //   { id: 5, place: 'Λάρισα' },
+  //   { id: 6, place: 'Βόλος' },
+  //   { id: 7, place: 'Τρίκαλα' },
+  // ];
 
   jobType: string = "";
   job: string = "";
@@ -62,19 +65,22 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.onGetPosts();
-    this.filteredJobTypes = this.jobTypesList;
+    this.OnFetchJobNamesFromDb();
+    this.OnFetchWorkingPlacesFromDb();
+
+    this.filteredJobTypes = this.jobNamesList;
     this.filteredWorkingPlaces = this.workingPlacesList;
   }
 
   applyJobFilter(evt: string) {
     evt = evt + '';
-    if (!evt) this.filteredJobTypes = this.jobTypesList;
+    if (!evt) this.filteredJobTypes = this.jobNamesList;
     else {
       /** uses both id and text fields for extensive filtering (case insensitive) . can be tailored for custom needs */
-      this.filteredJobTypes = this.jobTypesList.filter(
+      this.filteredJobTypes = this.jobNamesList.filter(
         (item) =>
-          item.id + '' === evt ||
-          item.text.toLocaleLowerCase().indexOf(evt.toLocaleLowerCase()) >= 0
+          item.Id + '' === evt ||
+          item.JobName.toLocaleLowerCase().indexOf(evt.toLocaleLowerCase()) >= 0
       );
     }
   }
@@ -86,14 +92,14 @@ export class MainComponent implements OnInit {
       /** uses both id and text fields for extensive filtering (case insensitive) . can be tailored for custom needs */
       this.filteredWorkingPlaces = this.workingPlacesList.filter(
         (itemm) =>
-          itemm.id + '' === evt ||
-          itemm.place.toLocaleLowerCase().indexOf(evt.toLocaleLowerCase()) >= 0
+          itemm.Id + '' === evt ||
+          itemm.Place.toLocaleLowerCase().indexOf(evt.toLocaleLowerCase()) >= 0
       );
     }
   }
 
   // public valueMapper = (key: any) => {
-  //   let selection = this.jobTypesList.find((e) => {
+  //   let selection = this.jobNamesList.find((e) => {
   //     return e.id == key;
   //   });
   //   if (selection) {
@@ -101,6 +107,82 @@ export class MainComponent implements OnInit {
   //   }
   //   return;
   // };
+
+  OnFetchJobNamesFromDb() {
+    this.getPosts = this.dbFunctionService.getJobsListFromAdminDb()
+    .pipe(map((response: any) => {
+      const jobsArray: JobNames[] = [];
+
+      for (const key in response) {
+        if (response.hasOwnProperty(key)) {
+          jobsArray.push({ ...response[key], id: key })
+        }
+      }
+      return jobsArray;
+    }))
+    .subscribe(
+      (res: any) => {
+        if ((res != null) || (res != undefined)) {
+          console.log(res)
+          const responseData = new Array<JobNames>(...res);
+
+          for (const data of responseData) {
+            const resObj = new JobNames();
+
+            resObj.Id = data.Id;
+            resObj.JobName = data.JobName;
+
+            this.jobNamesList.push(resObj);
+
+          }
+          //console.log(this.posts);
+        }
+        this.isLoadingResults = false;
+      },
+      err => {
+        console.log(err);
+        this.isLoadingResults = false;
+      }
+    );
+  }
+
+  OnFetchWorkingPlacesFromDb() {
+    this.getPosts = this.dbFunctionService.getWorkingPlacesListFromAdminDb()
+    .pipe(map((response: any) => {
+      const placesArray: WorkingPlaces[] = [];
+
+      for (const key in response) {
+        if (response.hasOwnProperty(key)) {
+          placesArray.push({ ...response[key], id: key })
+        }
+      }
+      return placesArray;
+    }))
+    .subscribe(
+      (res: any) => {
+        if ((res != null) || (res != undefined)) {
+          console.log(res)
+          const responseData = new Array<WorkingPlaces>(...res);
+
+          for (const data of responseData) {
+            const resObj = new WorkingPlaces();
+
+            resObj.Id = data.Id;
+            resObj.Place = data.Place;
+
+            this.workingPlacesList.push(resObj);
+
+          }
+          //console.log(this.posts);
+        }
+        this.isLoadingResults = false;
+      },
+      err => {
+        console.log(err);
+        this.isLoadingResults = false;
+      }
+    );
+  }
 
   onGetPosts() {
     this.isLoadingResults = true;
@@ -253,6 +335,8 @@ export class MainComponent implements OnInit {
   async refreshResults() {
     await this.onClearLog();
     await this.onGetPosts();
+    await  this.OnFetchJobNamesFromDb();
+    await this.OnFetchWorkingPlacesFromDb();
   }
 
   onClearFilters() {
@@ -265,6 +349,8 @@ export class MainComponent implements OnInit {
 
   onClearLog() {
     this.posts = [];
+    this.jobNamesList = [];
+    this.workingPlacesList = [];
   }
 
   ngOnDestroy() {
