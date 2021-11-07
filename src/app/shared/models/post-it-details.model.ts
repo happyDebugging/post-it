@@ -7,5 +7,6 @@ export class PostItDetails {
     Email?: string;
     Phone?: string;
     Place?: string;
+    DateCreated?: Date;
     Color?: string;
 }

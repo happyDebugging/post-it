@@ -32,9 +32,9 @@
         </button>
         <mat-autocomplete #autoJobName="matAutocomplete">
           <!-- <mat-optgroup *ngFor="let group of jobNamesList" [label]="group.Category"> -->
-            <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName" (click)="refreshResults()">
-              {{ job.JobName }}
-            </mat-option>
+          <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName" (click)="refreshResults()">
+            {{ job.JobName }}
+          </mat-option>
           <!-- </mat-optgroup> -->
         </mat-autocomplete>
       </mat-form-field>
@@ -124,19 +124,23 @@
       </div>
     </div>
 
+    <!-- <mat-paginator class="lime lighten-5" [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+    </mat-paginator> -->
+
+
 
     <!-- proswrino -->
     <div class="row">
       <br>
       <br>
 
-    
+
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Κατηγοριά Επαγγέλματος</mat-label>
         <input matInput [(ngModel)]="jobCategory">
       </mat-form-field>
 
-   
+
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Επάγγελμα</mat-label>
         <input matInput [(ngModel)]="jobbbbb">
@@ -145,7 +149,7 @@
         Επαγγέλματος</button>
       <br>
 
-   
+
       <!-- <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Πόλη/Περιοχή</mat-label>
         <input matInput [(ngModel)]="placeeee">
