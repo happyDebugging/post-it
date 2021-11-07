@@ -4,7 +4,7 @@ import { PostItDetails } from '../shared/models/post-it-details.model';
 import { DbFunctionService } from '../shared/services/db-functions.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { JobNames } from '../shared/models/job-names.model';
+import { Jobs } from '../shared/models/jobs.model';
 import { WorkingPlaces } from '../shared/models/working-places.model';
 
 @Component({
@@ -17,34 +17,8 @@ export class MainComponent implements OnInit {
   posts: PostItDetails[] = [];
 
   jobSearchTypes: string[] = ['Αναζητώ Εργασία', 'Αναζητώ Εργαζόμενο'];
-  // jobNamesList = [
-  //   { id: 1, text: 'Νοσηλευτής' },
-  //   { id: 2, text: 'Καθαρισμός χώρου' },
-  //   { id: 3, text: 'Ιατρός' },
-  //   { id: 4, text: 'Υδραυλικός' },
-  //   { id: 5, text: 'Φύλαξη ηλικιωμένων' },
-  //   { id: 6, text: 'Εστίαση' },
-  //   { id: 7, text: 'Πληροφορική' },
-  // ];
-  jobNamesList: JobNames[] = [];
+  jobNamesList: Jobs[] = [];
   workingPlacesList: WorkingPlaces[] = [];
-  // workingPlacesList = [
-    // 'Αθήνα',
-    // 'Θεσσαλονίκη',
-    // 'Πάτρα',
-    // 'Ηράκλειο',
-    // 'Λάρισα',
-    // 'Βόλος',
-    // 'Ιωάννινα',
-    // 'Τρίκαλα',
-  //   { id: 1, place: 'Αθήνα' },
-  //   { id: 2, place: 'Θεσσαλονίκη' },
-  //   { id: 3, place: 'Πάτρα' },
-  //   { id: 4, place: 'Ηράκλειο' },
-  //   { id: 5, place: 'Λάρισα' },
-  //   { id: 6, place: 'Βόλος' },
-  //   { id: 7, place: 'Τρίκαλα' },
-  // ];
 
   jobType: string = "";
   job: string = "";
@@ -111,7 +85,7 @@ export class MainComponent implements OnInit {
   OnFetchJobNamesFromDb() {
     this.getPosts = this.dbFunctionService.getJobsListFromAdminDb()
     .pipe(map((response: any) => {
-      const jobsArray: JobNames[] = [];
+      const jobsArray: Jobs[] = [];
 
       for (const key in response) {
         if (response.hasOwnProperty(key)) {
@@ -124,10 +98,10 @@ export class MainComponent implements OnInit {
       (res: any) => {
         if ((res != null) || (res != undefined)) {
           console.log(res)
-          const responseData = new Array<JobNames>(...res);
+          const responseData = new Array<Jobs>(...res);
 
           for (const data of responseData) {
-            const resObj = new JobNames();
+            const resObj = new Jobs();
 
             resObj.Id = data.Id;
             resObj.JobName = data.JobName;
@@ -357,6 +331,67 @@ export class MainComponent implements OnInit {
     if (this.getPosts && !this.getPosts.closed) {
       this.getPosts.unsubscribe();
     }
+  }
+
+  jobCategory: string ='';
+  jobbbbb: string ='';
+  placeeee: string ='';
+
+  OnPostJobsToDb() {
+    let jobs = new Jobs;
+
+    jobs.Id = this.jobNamesList.length+1;
+    jobs.Category = this.jobCategory;
+    jobs.JobName = this.jobbbbb;
+
+    //console.log(postItDetails);
+
+    this.dbFunctionService.postJobsToDb(jobs)
+      // .pipe(
+      //   catchError((error) => {
+      //     this.isLoading = false;
+      //     return of('Συνέβη κάποιο σφάλμα. Προσπαθήστε ξανά.');
+      //   })
+      //)
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          if ((res != null) || (res != undefined)) {
+            const responseData = new Array<Jobs>(...res);
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+  }
+
+  OnPostPlacesToDb() {
+    let placee = new WorkingPlaces;
+
+    placee.Id = this.workingPlacesList.length+1;
+    placee.Place = this.placeeee;
+
+    //console.log(postItDetails);
+
+    this.dbFunctionService.postPlacesToDb(placee)
+      // .pipe(
+      //   catchError((error) => {
+      //     this.isLoading = false;
+      //     return of('Συνέβη κάποιο σφάλμα. Προσπαθήστε ξανά.');
+      //   })
+      //)
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          if ((res != null) || (res != undefined)) {
+            const responseData = new Array<WorkingPlaces>(...res);
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 
 }
