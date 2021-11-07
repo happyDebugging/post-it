@@ -4,10 +4,12 @@
 
         <div class="row center">
             <div class="col ">
-                <!-- <form #form="ngForm" autocomplete="off" class=""> -->
+                <!-- <form class="form" #form="ngForm" [appMatchPassword]="['password', 'confirmPassword']"
+                    (ngSubmit)="registerForm.form.valid && onSubmit()" novalidate> -->
                     <mat-form-field appearance="fill">
                         <mat-label>Είδος Αγγελίας</mat-label>
-                        <mat-select [(ngModel)]="jobSearchType" [ngModelOptions]="{standalone: true}" ngDefaultControl>
+                        <mat-select [(ngModel)]="jobSearchType" [ngModelOptions]="{standalone: true}" ngDefaultControl
+                            required>
                             <mat-option *ngFor="let searchType of jobSearchTypes; let i = index;" [value]="searchType">
                                 {{searchType}}
                             </mat-option>
@@ -16,7 +18,8 @@
 
                     <mat-form-field appearance="fill">
                         <mat-label>Επάγγελμα</mat-label>
-                        <mat-select [(ngModel)]="jobName" [ngModelOptions]="{standalone: true}" ngDefaultControl>
+                        <mat-select [(ngModel)]="jobName" [ngModelOptions]="{standalone: true}" ngDefaultControl
+                            required>
                             <mat-option *ngFor="let jobType of jobTypesList; let i = index;" [value]="jobType">
                                 {{jobType}}
                             </mat-option>
@@ -25,8 +28,9 @@
 
                     <mat-form-field appearance="fill">
                         <mat-label>Περιοχή</mat-label>
-                        <mat-select [(ngModel)]="place" [ngModelOptions]="{standalone: true}" ngDefaultControl>
-                            <mat-option *ngFor="let workingPlace of workingPlaces; let i = index;" [value]="workingPlace">
+                        <mat-select [(ngModel)]="place" [ngModelOptions]="{standalone: true}" ngDefaultControl required>
+                            <mat-option *ngFor="let workingPlace of workingPlaces; let i = index;"
+                                [value]="workingPlace">
                                 {{workingPlace}}
                             </mat-option>
                         </mat-select>
@@ -34,25 +38,29 @@
 
                     <mat-form-field appearance="fill">
                         <mat-label>Όνομα</mat-label>
-                        <input matInput placeholder="Όνομα" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}" ngDefaultControl>
+                        <input matInput placeholder="Όνομα" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}"
+                            ngDefaultControl maxlength="30">
                         <!-- <textarea matInput placeholder="Όνομα" [value]="userName"></textarea> -->
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
                         <mat-label>Τηλέφωνο</mat-label>
-                        <input matInput placeholder="Τηλέφωνο" [(ngModel)]="userPhone" [ngModelOptions]="{standalone: true}" ngDefaultControl>
+                        <input matInput placeholder="Τηλέφωνο" [(ngModel)]="userPhone"
+                            [ngModelOptions]="{standalone: true}" ngDefaultControl maxlength="12">
                         <!-- <textarea matInput placeholder="Τηλέφωνο" [value]="userPhone"></textarea> -->
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
                         <mat-label>Email</mat-label>
-                        <input matInput placeholder="Email" [(ngModel)]="userEmail" [ngModelOptions]="{standalone: true}" ngDefaultControl>
+                        <input matInput placeholder="Email" [(ngModel)]="userEmail"
+                            [ngModelOptions]="{standalone: true}" ngDefaultControl required email maxlength="50">
                         <!-- <textarea matInput placeholder="Email" [value]="userEmail"></textarea> -->
                     </mat-form-field>
 
                     <mat-form-field appearance="fill">
                         <mat-label>Περιγραφή αγγελίας</mat-label>
-                        <textarea matInput placeholder="Περιγραφή αγγελίας" [(ngModel)]="userPost" [ngModelOptions]="{standalone: true}" ngDefaultControl></textarea>
+                        <textarea matInput placeholder="Περιγραφή αγγελίας" [(ngModel)]="userPost"
+                            [ngModelOptions]="{standalone: true}" ngDefaultControl required maxlength="500"></textarea>
                     </mat-form-field>
                 <!-- </form> -->
             </div>

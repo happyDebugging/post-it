@@ -40,3 +40,15 @@
   margin: 0px!important;
  }
 
+ .main-section {
+  min-height: 55rem!important;
+}
+
+.bottom-margin {
+  margin-bottom: 50%;
+}
+
+.align-center {
+  vertical-align: center;
+  height: 3rem;
+}

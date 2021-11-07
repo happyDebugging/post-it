@@ -141,27 +141,37 @@ export class MainComponent implements OnInit {
               resObj.JobName = data.JobName;
               resObj.JobSearchType = data.JobSearchType;
               resObj.Place = data.Place;
+              if (resObj.JobSearchType == 'Αναζητώ Εργασία')
+                resObj.Color = 'lime lighten-4';
+              else
+                resObj.Color = 'light-green lighten-4';
+
 
               console.log(this.jobType, this.job, this.place)
 
               if (resObj.JobSearchType == this.jobType)
                 this.flagJobType = true;
+              else   
+               this.flagJobType = false;
 
               if (resObj.JobName == this.job)
                 this.flagJob = true;
+              else   
+                this.flagJob = false;
 
               if (resObj.Place == this.place)
                 this.flagPlace = true;
-
+              else   
+                this.flagPlace = false;
 
               if (this.jobType == '' && this.job == '' && this.place == '') {
                 if (!this.flagJobType && !this.flagJob && !this.flagPlace) {
                   postItDetails.push(resObj);
                   this.posts.push(resObj);
 
-                  this.flagJobType = false;
-                  this.flagJob = false;
-                  this.flagPlace = false;
+                  //this.flagJobType = false;
+                  //this.flagJob = false;
+                  //this.flagPlace = false;
                 }
               }
               else if (this.jobType == '' && this.job == '') {
@@ -169,9 +179,9 @@ export class MainComponent implements OnInit {
                   postItDetails.push(resObj);
                   this.posts.push(resObj);
 
-                  this.flagJobType = false;
-                  this.flagJob = false;
-                  this.flagPlace = false;
+                  //this.flagJobType = false;
+                  //this.flagJob = false;
+                  //this.flagPlace = false;
                 }
               }
               if (this.jobType == '' && this.place == '') {
@@ -179,9 +189,9 @@ export class MainComponent implements OnInit {
                   postItDetails.push(resObj);
                   this.posts.push(resObj);
 
-                  this.flagJobType = false;
-                  this.flagJob = false;
-                  this.flagPlace = false;
+                  //this.flagJobType = false;
+                  //this.flagJob = false;
+                  //this.flagPlace = false;
                 }
               }
               if (this.job == '' && this.place == '') {
@@ -189,9 +199,9 @@ export class MainComponent implements OnInit {
                   postItDetails.push(resObj);
                   this.posts.push(resObj);
 
-                  this.flagJobType = false;
-                  this.flagJob = false;
-                  this.flagPlace = false;
+                  //this.flagJobType = false;
+                  //this.flagJob = false;
+                  //this.flagPlace = false;
                 }
               }
               else if (this.jobType == '') {
@@ -199,9 +209,9 @@ export class MainComponent implements OnInit {
                   postItDetails.push(resObj);
                   this.posts.push(resObj);
 
-                  this.flagJobType = false;
-                  this.flagJob = false;
-                  this.flagPlace = false;
+                  //this.flagJobType = false;
+                  // this.flagJob = false;
+                  // this.flagPlace = false;
                 }
               }
               else if (this.job == '') {
@@ -209,9 +219,9 @@ export class MainComponent implements OnInit {
                   postItDetails.push(resObj);
                   this.posts.push(resObj);
 
-                  this.flagJobType = false;
-                  this.flagJob = false;
-                  this.flagPlace = false;
+                  //this.flagJobType = false;
+                  //this.flagJob = false;
+                  //this.flagPlace = false;
                 }
               }
               else if (this.place == '') {
@@ -219,9 +229,9 @@ export class MainComponent implements OnInit {
                   postItDetails.push(resObj);
                   this.posts.push(resObj);
 
-                  this.flagJobType = false;
-                  this.flagJob = false;
-                  this.flagPlace = false;
+                  //this.flagJobType = false;
+                  //this.flagJob = false;
+                  //this.flagPlace = false;
                 }
               }
               else {
@@ -229,17 +239,10 @@ export class MainComponent implements OnInit {
                   postItDetails.push(resObj);
                   this.posts.push(resObj);
 
-                  this.flagJobType = false;
-                  this.flagJob = false;
-                  this.flagPlace = false;
+                  //this.flagJobType = false;
+                  //this.flagJob = false;
+                  //this.flagPlace = false;
                 }
-              }
-
-              if (resObj.JobSearchType == 'Αναζητώ Εργασία') {
-                resObj.Color = 'lime lighten-4';
-              }
-              else {
-                resObj.Color = 'light-green lighten-4';
               }
 
             }
@@ -255,6 +258,14 @@ export class MainComponent implements OnInit {
   async refreshResults() {
     await this.onClearLog();
     await this.onGetPosts();
+  }
+
+  onClearFilters() {
+    this.jobType = '';
+    this.job = '';
+    this.place = '';
+
+    this.refreshResults();
   }
 
   onClearLog() {
