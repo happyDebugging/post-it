@@ -104,6 +104,7 @@ export class MainComponent implements OnInit {
             const resObj = new Jobs();
 
             resObj.Id = data.Id;
+            resObj.Category = data.Category;
             resObj.JobName = data.JobName;
 
             this.jobNamesList.push(resObj);

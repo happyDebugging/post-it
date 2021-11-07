@@ -5,7 +5,7 @@
 
     <h2 class="center">Αναζήτηση με βάση λέξεις-κλειδιά</h2>
 
-    <div class="row center">
+    <div class="center">
       <mat-form-field appearance="fill">
         <mat-label>Είδος Αγγελίας</mat-label>
         <mat-select [(ngModel)]="jobType">
@@ -31,9 +31,11 @@
           <mat-icon>close</mat-icon>
         </button>
         <mat-autocomplete #autoJobName="matAutocomplete">
-          <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName" (click)="refreshResults()">
-            {{ job.JobName }}
-          </mat-option>
+          <!-- <mat-optgroup *ngFor="let group of jobNamesList" [label]="group.Category"> -->
+            <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName" (click)="refreshResults()">
+              {{ job.JobName }}
+            </mat-option>
+          <!-- </mat-optgroup> -->
         </mat-autocomplete>
       </mat-form-field>
 
@@ -127,15 +129,14 @@
     <div class="row">
       <br>
       <br>
+
     
-      <!-- <input matInput placeholder="Κατηγοριά Επαγγέλματος" [(ngModel)]="jobCategory"
-        [ngModelOptions]="{standalone: true}" ngDefaultControl> -->
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Κατηγοριά Επαγγέλματος</mat-label>
         <input matInput [(ngModel)]="jobCategory">
       </mat-form-field>
+
    
-      <!-- <input matInput placeholder="Επάγγελμα" [(ngModel)]="job" [ngModelOptions]="{standalone: true}" ngDefaultControl> -->
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Επάγγελμα</mat-label>
         <input matInput [(ngModel)]="jobbbbb">
@@ -144,14 +145,13 @@
         Επαγγέλματος</button>
       <br>
 
-      <!-- <input matInput placeholder="Πόλη/Περιοχή" [(ngModel)]="place" [ngModelOptions]="{standalone: true}"
-        ngDefaultControl> -->
-      <mat-form-field class="example-full-width" appearance="fill">
+   
+      <!-- <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Πόλη/Περιοχή</mat-label>
         <input matInput [(ngModel)]="placeeee">
       </mat-form-field>
       <button class="waves-effect waves-light btn-large" mat-dialog-close (click)="OnPostPlacesToDb()">Αποθήκευση
-        Περιοχής</button>
+        Περιοχής</button> -->
     </div>
 
 
