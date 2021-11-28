@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
@@ -8,26 +8,21 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class VisitorsService {
 
-  constructor(
-    private http: HttpClient
-  ) { 
+  constructor(private http: HttpClient) { }
 
-  }
- 
   getIpAddress() {
-    return this.http
-          .get('https://apify.org?format=json');
-  } 
+    return this.http.get('http://api.ipify.org/?format=json;');
+  }
 
-   getGEOLocation(ip: any) {
-  // Update your api key to get from https://ipgeolocation.io
-  let url = "https://cors-anywhere.herokuapp.com/https://api.ipgeolocation.io/ipgeo?apiKey=ff0f6d181c094b1da2c894568f6e33cc&ip="+ip; 
+  getGEOLocation(ip: any) {
+    // Update your api key to get from https://ipgeolocation.io
+    let url = "https://cors-anywhere.herokuapp.com/https://api.ipgeolocation.io/ipgeo?apiKey=ff0f6d181c094b1da2c894568f6e33cc&ip=" + ip;
     return this.http
-          .get(url)
-          .pipe(
-            catchError(this.handleError)
-          );
-  } 
+      .get(url)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

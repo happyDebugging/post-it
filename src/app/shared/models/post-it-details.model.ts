@@ -9,4 +9,5 @@ export class PostItDetails {
     Place?: string;
     DateCreated?: Date;
     Color?: string;
+    Ip?: string;
 }

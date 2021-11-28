@@ -1,9 +1,19 @@
 <ng-template #occurredAt let-modal>
-    <h1 mat-dialog-title>Δημιουργία νέας αγγελίας</h1>
+    <div class="row">
+        <div class="col s11">
+            <h1 mat-dialog-title>Δημιουργία νέας αγγελίας</h1>
+        </div>
+        <div class="col s1">
+            <button class="transparent-button" mat-button mat-icon-button mat-dialog-close aria-label="Clear">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+
     <div mat-dialog-content>
 
         <div class="row center">
-            <div class="col ">
+            <div class="col s12">
                 <!-- <form class="form" #form="ngForm" [appMatchPassword]="['password', 'confirmPassword']"
                     (ngSubmit)="registerForm.form.valid && onSubmit()" novalidate> -->
                 <mat-form-field appearance="fill">
@@ -16,49 +26,28 @@
                     </mat-select>
                 </mat-form-field>
 
-                <!-- <mat-form-field appearance="fill">
-                        <mat-label>Επάγγελμα</mat-label>
-                        <mat-select [(ngModel)]="jobName" [ngModelOptions]="{standalone: true}" ngDefaultControl
-                            required>
-                            <mat-option *ngFor="let jobType of jobTypesList; let i = index;" [value]="jobType">
-                                {{jobType}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill">
-                        <mat-label>Περιοχή</mat-label>
-                        <mat-select [(ngModel)]="place" [ngModelOptions]="{standalone: true}" ngDefaultControl required>
-                            <mat-option *ngFor="let workingPlace of workingPlaces; let i = index;"
-                                [value]="workingPlace">
-                                {{workingPlace}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field> -->
-
                 <mat-form-field appearance="fill">
                     <mat-label>Επάγγελμα</mat-label>
                     <input matInput [(ngModel)]="jobName" [matAutocomplete]="autoJobName"
-                        (ngModelChange)="applyJobFilter($event)" [ngModelOptions]="{standalone: true}" ngDefaultControl required/>
+                        (ngModelChange)="applyJobFilter($event)" [ngModelOptions]="{standalone: true}" ngDefaultControl
+                        required />
                     <button mat-button *ngIf="jobName" matSuffix mat-icon-button aria-label="Clear"
                         (click)="jobName=''">
                         <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #autoJobName="matAutocomplete">
-                        <!-- <mat-optgroup *ngFor="let group of jobNamesList" [label]="group.Category"> -->
                         <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName">
                             {{ job.JobName }}
                         </mat-option>
-                        <!-- </mat-optgroup> -->
                     </mat-autocomplete>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
                     <mat-label>Περιοχή</mat-label>
                     <input matInput [(ngModel)]="place" [matAutocomplete]="autoPlace"
-                        (ngModelChange)="applyPlacesFilter($event)" [ngModelOptions]="{standalone: true}" ngDefaultControl required/>
-                    <button mat-button *ngIf="place" matSuffix mat-icon-button aria-label="Clear"
-                        (click)="place=''">
+                        (ngModelChange)="applyPlacesFilter($event)" [ngModelOptions]="{standalone: true}"
+                        ngDefaultControl required />
+                    <button mat-button *ngIf="place" matSuffix mat-icon-button aria-label="Clear" (click)="place=''">
                         <mat-icon>close</mat-icon>
                     </button>
                     <mat-autocomplete #autoPlace="matAutocomplete">
@@ -72,21 +61,18 @@
                     <mat-label>Όνομα</mat-label>
                     <input matInput placeholder="Όνομα" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}"
                         ngDefaultControl maxlength="30">
-                    <!-- <textarea matInput placeholder="Όνομα" [value]="userName"></textarea> -->
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
                     <mat-label>Τηλέφωνο</mat-label>
                     <input matInput placeholder="Τηλέφωνο" [(ngModel)]="userPhone" [ngModelOptions]="{standalone: true}"
                         ngDefaultControl maxlength="12">
-                    <!-- <textarea matInput placeholder="Τηλέφωνο" [value]="userPhone"></textarea> -->
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
                     <mat-label>Email</mat-label>
                     <input matInput placeholder="Email" [(ngModel)]="userEmail" [ngModelOptions]="{standalone: true}"
                         ngDefaultControl required email maxlength="50">
-                    <!-- <textarea matInput placeholder="Email" [value]="userEmail"></textarea> -->
                 </mat-form-field>
 
                 <mat-form-field appearance="fill">
@@ -102,9 +88,17 @@
     </div>
     <div mat-dialog-actions>
 
-        <div class="row center">
-            <button class="waves-effect waves-light btn-large" mat-dialog-close
-                (click)="OnPostNewPostToDb()">Δημιουργία</button>
+        <div class="section row right-align">
+            <div class="col s6 m8 l11">
+                <button class="waves-effect waves-light btn-large grey lighten-1" mat-dialog-close>
+                    Ακύρωση
+                </button>
+            </div>
+            <div class="col s6 m4 l1">
+                <button class="waves-effect waves-light btn-large" mat-dialog-close (click)="prepareDetailsToPost()">
+                    Δημιουργία
+                </button>
+            </div>
         </div>
 
     </div>
@@ -117,7 +111,9 @@
 
         <nav class="transparent-element z-depth-0">
             <div class="nav-wrapper container">
-                <a href="#" class="brand-logo"><h1>Post-it</h1></a>
+                <a href="#" class="brand-logo">
+                    <h1>Post-it</h1>
+                </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <!-- <li><a href="sass.html">Sass</a></li>
                 <li><a href="badges.html">Components</a></li>
@@ -130,7 +126,7 @@
             <h2 class="header center">Αναζητάς δουλειά; Καρφίτσωσε ένα post!</h2>
 
             <br>
-    
+
             <div class="container">
                 <form class="col s12">
                     <div class="row center">
@@ -139,10 +135,10 @@
                     <!-- <h2 class="center white-text">ή</h2> -->
                 </form>
             </div>
-    
+
             <br><br>
         </div>
-        
+
 
     </div>
 </div>

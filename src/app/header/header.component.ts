@@ -8,6 +8,7 @@ import { WorkingPlaces } from '../shared/models/working-places.model';
 import { DbFunctionService } from '../shared/services/db-functions.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { VisitorsService } from '../shared/services/visitors.service';
 // import { DialogueComponent } from './dialogue/dialogue.component';
 
 @Component({
@@ -35,13 +36,14 @@ export class HeaderComponent implements OnInit {
   job: string = "";
 
   newPost: Subscription = new Subscription;
+  ipAddress: string = '';
 
   filteredJobTypes?: any;
   filteredWorkingPlaces?: any;
 
   isLoadingResults: boolean = false;
 
-  constructor(public dialog: MatDialog, private dbFunctionService: DbFunctionService) { }
+  constructor(public dialog: MatDialog, private dbFunctionService: DbFunctionService, private visitorsService: VisitorsService) { }
 
   ngOnInit(): void {
     this.OnFetchJobNamesFromDb();
@@ -103,85 +105,89 @@ export class HeaderComponent implements OnInit {
 
   OnFetchJobNamesFromDb() {
     this.dbFunctionService.getJobsListFromAdminDb()
-    .pipe(map((response: any) => {
-      const jobsArray: Jobs[] = [];
+      .pipe(map((response: any) => {
+        const jobsArray: Jobs[] = [];
 
-      for (const key in response) {
-        if (response.hasOwnProperty(key)) {
-          jobsArray.push({ ...response[key], id: key })
-        }
-      }
-      return jobsArray;
-    }))
-    .subscribe(
-      (res: any) => {
-        if ((res != null) || (res != undefined)) {
-          //console.log(res)
-          const responseData = new Array<Jobs>(...res);
-
-          for (const data of responseData) {
-            const resObj = new Jobs();
-
-            resObj.Id = data.Id;
-            resObj.Category = data.Category;
-            resObj.JobName = data.JobName;
-
-            this.jobNamesList.push(resObj);
-
+        for (const key in response) {
+          if (response.hasOwnProperty(key)) {
+            jobsArray.push({ ...response[key], id: key })
           }
-          //console.log(this.posts);
         }
-        this.isLoadingResults = false;
-      },
-      err => {
-        //console.log(err);
-        this.isLoadingResults = false;
-      }
-    );
+        return jobsArray;
+      }))
+      .subscribe(
+        (res: any) => {
+          if ((res != null) || (res != undefined)) {
+            //console.log(res)
+            const responseData = new Array<Jobs>(...res);
+
+            for (const data of responseData) {
+              const resObj = new Jobs();
+
+              resObj.Id = data.Id;
+              resObj.Category = data.Category;
+              resObj.JobName = data.JobName;
+
+              this.jobNamesList.push(resObj);
+
+            }
+            //console.log(this.posts);
+          }
+          this.isLoadingResults = false;
+        },
+        err => {
+          //console.log(err);
+          this.isLoadingResults = false;
+        }
+      );
   }
 
   OnFetchWorkingPlacesFromDb() {
     this.dbFunctionService.getWorkingPlacesListFromAdminDb()
-    .pipe(map((response: any) => {
-      const placesArray: WorkingPlaces[] = [];
+      .pipe(map((response: any) => {
+        const placesArray: WorkingPlaces[] = [];
 
-      for (const key in response) {
-        if (response.hasOwnProperty(key)) {
-          placesArray.push({ ...response[key], id: key })
-        }
-      }
-      return placesArray;
-    }))
-    .subscribe(
-      (res: any) => {
-        if ((res != null) || (res != undefined)) {
-          //console.log(res)
-          const responseData = new Array<WorkingPlaces>(...res);
-
-          for (const data of responseData) {
-            const resObj = new WorkingPlaces();
-
-            resObj.Id = data.Id;
-            resObj.Place = data.Place;
-
-            this.workingPlacesList.push(resObj);
-
+        for (const key in response) {
+          if (response.hasOwnProperty(key)) {
+            placesArray.push({ ...response[key], id: key })
           }
-          //console.log(this.posts);
         }
-        this.isLoadingResults = false;
-      },
-      err => {
-        //console.log(err);
-        this.isLoadingResults = false;
-      }
-    );
+        return placesArray;
+      }))
+      .subscribe(
+        (res: any) => {
+          if ((res != null) || (res != undefined)) {
+            //console.log(res)
+            const responseData = new Array<WorkingPlaces>(...res);
+
+            for (const data of responseData) {
+              const resObj = new WorkingPlaces();
+
+              resObj.Id = data.Id;
+              resObj.Place = data.Place;
+
+              this.workingPlacesList.push(resObj);
+
+            }
+            //console.log(this.posts);
+          }
+          this.isLoadingResults = false;
+        },
+        err => {
+          //console.log(err);
+          this.isLoadingResults = false;
+        }
+      );
   }
 
   onClearFilters() {
     this.jobType = '';
     this.job = '';
     this.place = '';
+  }
+
+  prepareDetailsToPost() {
+    this.getipAddress();
   }
 
   OnPostNewPostToDb() {
@@ -194,6 +200,7 @@ export class HeaderComponent implements OnInit {
     postItDetails.JobName = this.jobName;
     postItDetails.JobSearchType = this.jobSearchType;
     postItDetails.Place = this.place;
+    postItDetails.Ip = this.ipAddress;
 
     //console.log(postItDetails);
 
@@ -224,6 +231,15 @@ export class HeaderComponent implements OnInit {
 
   reloadCurrentPage() {
     window.location.reload();
+  }
+
+  getipAddress() {
+    this.visitorsService.getIpAddress().subscribe((res: any) => {
+      this.ipAddress = res.ip;
+      console.log(res);
+      console.log(this.ipAddress)
+      this.OnPostNewPostToDb();
+    });
   }
 
   onClearLog(postItDetails: PostItDetails) {

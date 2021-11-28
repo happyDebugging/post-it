@@ -25,6 +25,11 @@
     color: #494544  ;
 }
 
+.transparent-button{
+    background-color: #f0e5df00;
+    color: #494544  ;
+}
+
   h2 {
     font-size: 30px;
   }
