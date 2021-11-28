@@ -9,6 +9,7 @@ import { DbFunctionService } from '../shared/services/db-functions.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { VisitorsService } from '../shared/services/visitors.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 // import { DialogueComponent } from './dialogue/dialogue.component';
 
 @Component({
@@ -43,7 +44,8 @@ export class HeaderComponent implements OnInit {
 
   isLoadingResults: boolean = false;
 
-  constructor(public dialog: MatDialog, private dbFunctionService: DbFunctionService, private visitorsService: VisitorsService) { }
+  constructor(public dialog: MatDialog, private dbFunctionService: DbFunctionService, private visitorsService: VisitorsService,
+    private successfulPostCreationNotification: MatSnackBar) { }
 
   ngOnInit(): void {
     this.OnFetchJobNamesFromDb();
@@ -215,18 +217,18 @@ export class HeaderComponent implements OnInit {
         (res: any) => {
           //console.log(res);
           if ((res != null) || (res != undefined)) {
-            const responseData = new Array<PostItDetails>(...res);
+            //const responseData = new Array<PostItDetails>(...res);
+            const success = true;
+            this.openSuccessPostSnackBar(success);
 
             this.onClearLog(postItDetails);
-
-            this.reloadCurrentPage();
+            //this.reloadCurrentPage();
           }
         },
         err => {
           //console.log(err);
         }
       );
-
   }
 
   reloadCurrentPage() {
@@ -236,10 +238,23 @@ export class HeaderComponent implements OnInit {
   getipAddress() {
     this.visitorsService.getIpAddress().subscribe((res: any) => {
       this.ipAddress = res.ip;
-      console.log(res);
-      console.log(this.ipAddress)
       this.OnPostNewPostToDb();
     });
+  }
+
+  openSuccessPostSnackBar(success: boolean) {
+    let message = '';
+    let action = '';
+    if (success) {
+      message = 'Επιτυχής ανάρτηση αγγελίας!';
+      action = 'OK';
+    }
+    else {
+      message = 'Πρόβλημα ανάρτησης. Προσπαθήστε ξανά.';
+      action = 'OK';
+    }
+
+    this.successfulPostCreationNotification.open(message, action);
   }
 
   onClearLog(postItDetails: PostItDetails) {

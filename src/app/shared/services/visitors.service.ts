@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { Visitors } from '../models/visitor-details.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,29 +17,16 @@ export class VisitorsService {
   }
 
   getGEOLocation(ip: any) {
-    // Update your api key to get from https://ipgeolocation.io
-    let url = "https://cors-anywhere.herokuapp.com/https://api.ipgeolocation.io/ipgeo?apiKey=ff0f6d181c094b1da2c894568f6e33cc&ip=" + ip;
-    return this.http
-      .get(url)
-      .pipe(
-        catchError(this.handleError)
-      );
+    let url = 'http://ipinfo.io/' + ip + '?token=6afdb54c9ec5e3';
+    return this.http.get(url);
   }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+  saveVisitorDetails(visitorDetails: Visitors) {
+    let options: any = {
+        //params: {}, 
+        observe: 'response'
     }
-    // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
-  }
+    return this.http.post(environment.postItAdminRepoURL + environment.visitorsTable, visitorDetails, options);
+}
 
 }

@@ -19,6 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './header/header.component';
@@ -56,7 +57,8 @@ import { VisitorsService } from './shared/services/visitors.service';
     MatIconModule,
     MatPaginatorModule,
     MatExpansionModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    MatSnackBarModule
   ],
   providers: [
     DbFunctionService,
