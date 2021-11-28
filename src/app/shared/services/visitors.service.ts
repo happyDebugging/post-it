@@ -16,10 +16,7 @@ export class VisitorsService {
  
   getIpAddress() {
     return this.http
-          .get('https://cors-anywhere.herokuapp.com/https://api.ipify.org/?format=json')
-          .pipe(
-            catchError(this.handleError)
-          );
+          .get('https://apify.org?format=json');
   } 
 
    getGEOLocation(ip: any) {
