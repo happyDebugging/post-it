@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { VisitorsService } from './shared/services/visitors.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'post-it';
+
+  ipaddress:string = '';
+   constructor(
+      private visitorsService:VisitorsService
+   ){
+
+   }
+
+   ngOnInit(){
+
+      // this.visitorsService.getIpAddress().subscribe((res:any )=> {
+
+      //   this.ipaddress = res['ip'];
+      //   //console.log(res);
+
+      // });
+   }
+
 }

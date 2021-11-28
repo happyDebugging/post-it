@@ -12,6 +12,7 @@
   min-width: 22rem;
   min-height: 20rem;
   position: relative;
+  margin: auto;
 }
 
 .card-content {
@@ -42,6 +43,7 @@
 
  .main-section {
   min-height: 55rem!important;
+  padding-bottom: 0;
 }
 
 .bottom-margin {
@@ -101,3 +103,33 @@ box-shadow: 0 1px 0 0 #f00;
 border-bottom: none;
 box-shadow: none;
 }
+
+::ng-deep .mat-form-field{
+  width:100% !important;
+  padding-right: 2rem !important;
+}
+
+mat-expansion-panel {
+  background-color: #f1f8e9 !important;
+}
+
+mat-panel-description {
+  justify-content: center !important;
+  padding-top: 1rem !important;
+  padding-bottom: -6rem !important;
+}
+
+.scrollButton{
+  position:sticky; 
+  bottom: 0;
+  width: 100%;
+  margin: 0;
+}
+
+.sticky {
+  position: fixed; 
+  bottom: 10px;
+  right: 5rem;
+  margin: 0;
+  font-size: 36px;
+ }

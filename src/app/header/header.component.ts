@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('');
+      //console.log('');
     });
   }
 
@@ -116,7 +116,7 @@ export class HeaderComponent implements OnInit {
     .subscribe(
       (res: any) => {
         if ((res != null) || (res != undefined)) {
-          console.log(res)
+          //console.log(res)
           const responseData = new Array<Jobs>(...res);
 
           for (const data of responseData) {
@@ -134,7 +134,7 @@ export class HeaderComponent implements OnInit {
         this.isLoadingResults = false;
       },
       err => {
-        console.log(err);
+        //console.log(err);
         this.isLoadingResults = false;
       }
     );
@@ -155,7 +155,7 @@ export class HeaderComponent implements OnInit {
     .subscribe(
       (res: any) => {
         if ((res != null) || (res != undefined)) {
-          console.log(res)
+          //console.log(res)
           const responseData = new Array<WorkingPlaces>(...res);
 
           for (const data of responseData) {
@@ -172,7 +172,7 @@ export class HeaderComponent implements OnInit {
         this.isLoadingResults = false;
       },
       err => {
-        console.log(err);
+        //console.log(err);
         this.isLoadingResults = false;
       }
     );
@@ -206,7 +206,7 @@ export class HeaderComponent implements OnInit {
       //)
       .subscribe(
         (res: any) => {
-          console.log(res);
+          //console.log(res);
           if ((res != null) || (res != undefined)) {
             const responseData = new Array<PostItDetails>(...res);
 
@@ -216,7 +216,7 @@ export class HeaderComponent implements OnInit {
           }
         },
         err => {
-          console.log(err);
+          //console.log(err);
         }
       );
 

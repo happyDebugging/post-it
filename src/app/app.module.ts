@@ -17,6 +17,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './header/header.component';
@@ -25,6 +27,7 @@ import { FooterComponent } from './footer/footer.component';
 import { DbFunctionService } from './shared/services/db-functions.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { VisitorsService } from './shared/services/visitors.service';
 
 @NgModule({
   declarations: [
@@ -51,10 +54,13 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatAutocompleteModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatExpansionModule,
+    CdkAccordionModule
   ],
   providers: [
-    DbFunctionService
+    DbFunctionService,
+    VisitorsService
   ],
   bootstrap: [AppComponent]
 })

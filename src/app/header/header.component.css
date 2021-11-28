@@ -10,11 +10,24 @@
   } */
 
 
+
 .header-section {
     background-image: url("src/assets/images/post-it-notes.jpeg");
     background-size: cover;
-    height: 13rem;
+    height: 18rem;
+    padding-top: 0 !important;
+    color:#fffde7;
 }
+
+.transparent-element{
+    background-color: #f0e5dfab;
+    padding-top: 2rem;
+    color: #494544  ;
+}
+
+  h2 {
+    font-size: 30px;
+  }
 
 /* .input-field {
     background-color: rgba(194, 255, 219, 0.418);
@@ -85,4 +98,9 @@ border-bottom: 1px solid #f00;
 box-shadow: 0 1px 0 0 #f00;
 border-bottom: none;
 box-shadow: none;
+}
+
+.nav{
+    background-color: rgba(240, 231, 231, 0.747) !important;
+    color: rgb(56, 56, 52);
 }

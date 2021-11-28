@@ -1,75 +1,77 @@
-<div class="section brown lighten-5">
-  <div class="container">
+<div #topOfPage class="brown lighten-5">
 
-    <!-- <a href="#modal1" class="waves-effect waves-light btn modal-trigger">+ Δημιουργία αγγελιας</a> -->
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="panelOpenState === true">
+      <mat-expansion-panel-header>
+        <mat-panel-description class="center">
+          <h2 class="center">Αναζήτηση με βάση λέξεις-κλειδιά</h2>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <h2 class="center">Αναζήτηση με βάση λέξεις-κλειδιά</h2>
+      <div class="container">
 
-    <div class="center">
-      <mat-form-field appearance="fill">
-        <mat-label>Είδος Αγγελίας</mat-label>
-        <mat-select [(ngModel)]="jobType">
-          <mat-option *ngFor="let jobSearchType of jobSearchTypes" [value]="jobSearchType" (click)="refreshResults()">
-            {{jobSearchType}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <div class="center">
 
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>Επάγγελμα</mat-label>
-        <mat-select [(ngModel)]="job">
-          <mat-option *ngFor="let jobType of jobNamesList" [value]="jobType" (click)="refreshResults()">
-            {{jobType}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
+          <div class="row">
+            <div class="col s12 m6 l4">
+              <mat-form-field appearance="fill">
+                <mat-label>Είδος Αγγελίας</mat-label>
+                <mat-select [(ngModel)]="jobType">
+                  <mat-option *ngFor="let jobSearchType of jobSearchTypes" [value]="jobSearchType"
+                    (click)="refreshResults()">
+                    {{jobSearchType}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Επάγγελμα</mat-label>
-        <input matInput [(ngModel)]="job" [matAutocomplete]="autoJobName" (ngModelChange)="applyJobFilter($event)" />
-        <button mat-button *ngIf="job" matSuffix mat-icon-button aria-label="Clear" (click)="job=''; refreshResults()">
-          <mat-icon>close</mat-icon>
-        </button>
-        <mat-autocomplete #autoJobName="matAutocomplete">
-          <!-- <mat-optgroup *ngFor="let group of jobNamesList" [label]="group.Category"> -->
-          <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName" (click)="refreshResults()">
-            {{ job.JobName }}
-          </mat-option>
-          <!-- </mat-optgroup> -->
-        </mat-autocomplete>
-      </mat-form-field>
+            <div class="col s12 m6 l4">
+              <mat-form-field appearance="fill">
+                <mat-label>Επάγγελμα</mat-label>
+                <input matInput [(ngModel)]="job" [matAutocomplete]="autoJobName"
+                  (ngModelChange)="applyJobFilter($event)" />
+                <button mat-button *ngIf="job" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="job=''; refreshResults()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autoJobName="matAutocomplete">
+                  <!-- <mat-optgroup *ngFor="let group of jobNamesList" [label]="group.Category"> -->
+                  <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName" (click)="refreshResults()">
+                    {{ job.JobName }}
+                  </mat-option>
+                  <!-- </mat-optgroup> -->
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
 
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>Περιοχή</mat-label>
-        <mat-select [(ngModel)]="place">
-          <mat-option *ngFor="let workingPlace of workingPlaces" [value]="workingPlace" (click)="refreshResults()">
-            {{workingPlace}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> -->
+            <div class="col s12 m6 l4">
+              <mat-form-field appearance="fill">
+                <mat-label>Περιοχή</mat-label>
+                <input matInput [(ngModel)]="place" [matAutocomplete]="autoPlace"
+                  (ngModelChange)="applyPlacesFilter($event)" />
+                <button mat-button *ngIf="place" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="place=''; refreshResults()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autoPlace="matAutocomplete">
+                  <mat-option *ngFor="let workingPlace of filteredWorkingPlaces" [value]="workingPlace.Place"
+                    (click)="refreshResults()">
+                    {{ workingPlace.Place }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Περιοχή</mat-label>
-        <input matInput [(ngModel)]="place" [matAutocomplete]="autoPlace" (ngModelChange)="applyPlacesFilter($event)" />
-        <button mat-button *ngIf="place" matSuffix mat-icon-button aria-label="Clear"
-          (click)="place=''; refreshResults()">
-          <mat-icon>close</mat-icon>
-        </button>
-        <mat-autocomplete #autoPlace="matAutocomplete">
-          <mat-option *ngFor="let workingPlace of filteredWorkingPlaces" [value]="workingPlace.Place"
-            (click)="refreshResults()">
-            {{ workingPlace.Place }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+          <!-- <button class="waves-effect waves-light btn" (click)="onClearFilters()"><i
+              class="material-icons">clear</i></button> -->
+        </div>
 
-      <!-- <button class="waves-effect waves-light btn" (click)="onClearFilters()"><i
-          class="material-icons">clear</i></button> -->
-    </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 
-  </div>
 </div>
-
 
 <div class="section lime lighten-5 main-section">
   <div class="container">
@@ -79,7 +81,6 @@
       <h2 class="center">Δεν βρέθηκε αποτέλεσμα που να αντιστοιχεί στους όρους αναζήτησης.</h2>
       <br>
     </div>
-
 
     <div class="row">
       <div *ngFor="let post of posts; let i = index;">
@@ -128,7 +129,6 @@
     </mat-paginator> -->
 
 
-
     <!-- proswrino -->
     <div class="row">
       <br>
@@ -160,4 +160,9 @@
 
 
   </div>
+
+  <a *ngIf="posts.length > 0 && !isLoadingResults" class="waves-effect waves-light btn scrollButton teal" (click)="scrollToTopOfPage(topOfPage)">Μεταβαση στην κορυφη</a>
+
+  <!-- <a class="sticky" (click)="scrollToTopOfPage(topOfPage)"><mat-icon [inline]="true">keyboard_arrow_up</mat-icon></a> -->
+
 </div>

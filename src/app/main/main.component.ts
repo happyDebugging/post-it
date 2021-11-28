@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PostItDetails } from '../shared/models/post-it-details.model';
 import { DbFunctionService } from '../shared/services/db-functions.service';
@@ -34,6 +34,7 @@ export class MainComponent implements OnInit {
   filteredWorkingPlaces?: any;
 
   isLoadingResults: boolean = false;
+  panelOpenState: boolean = true;
 
   constructor(private dbFunctionService: DbFunctionService) { }
 
@@ -97,7 +98,7 @@ export class MainComponent implements OnInit {
     .subscribe(
       (res: any) => {
         if ((res != null) || (res != undefined)) {
-          console.log(res)
+          //console.log(res)
           const responseData = new Array<Jobs>(...res);
 
           for (const data of responseData) {
@@ -115,7 +116,7 @@ export class MainComponent implements OnInit {
         this.isLoadingResults = false;
       },
       err => {
-        console.log(err);
+        //console.log(err);
         this.isLoadingResults = false;
       }
     );
@@ -136,7 +137,7 @@ export class MainComponent implements OnInit {
     .subscribe(
       (res: any) => {
         if ((res != null) || (res != undefined)) {
-          console.log(res)
+          //console.log(res)
           const responseData = new Array<WorkingPlaces>(...res);
 
           for (const data of responseData) {
@@ -153,7 +154,7 @@ export class MainComponent implements OnInit {
         this.isLoadingResults = false;
       },
       err => {
-        console.log(err);
+        //console.log(err);
         this.isLoadingResults = false;
       }
     );
@@ -197,7 +198,7 @@ export class MainComponent implements OnInit {
                 resObj.Color = 'light-green lighten-4';
 
 
-              console.log(this.jobType, this.job, this.place)
+              //console.log(this.jobType, this.job, this.place)
 
               if (resObj.JobSearchType == this.jobType)
                 this.flagJobType = true;
@@ -301,7 +302,7 @@ export class MainComponent implements OnInit {
           this.isLoadingResults = false;
         },
         err => {
-          console.log(err);
+          //console.log(err);
           this.isLoadingResults = false;
         }
       );
@@ -356,13 +357,13 @@ export class MainComponent implements OnInit {
       //)
       .subscribe(
         (res: any) => {
-          console.log(res);
+          //console.log(res);
           if ((res != null) || (res != undefined)) {
             const responseData = new Array<Jobs>(...res);
           }
         },
         err => {
-          console.log(err);
+          //console.log(err);
         }
       );
   }
@@ -384,15 +385,19 @@ export class MainComponent implements OnInit {
       //)
       .subscribe(
         (res: any) => {
-          console.log(res);
+          //console.log(res);
           if ((res != null) || (res != undefined)) {
             const responseData = new Array<WorkingPlaces>(...res);
           }
         },
         err => {
-          console.log(err);
+          //console.log(err);
         }
       );
+  }
+
+  scrollToTopOfPage(el:  HTMLElement): void{
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
 }
