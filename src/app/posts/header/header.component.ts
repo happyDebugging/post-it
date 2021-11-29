@@ -222,7 +222,7 @@ export class HeaderComponent implements OnInit {
             this.openSuccessPostSnackBar(success);
 
             this.onClearLog(postItDetails);
-            //this.reloadCurrentPage();
+            this.reloadCurrentPage();
           }
         },
         err => {
