@@ -32,6 +32,7 @@ import { VisitorsService } from './shared/services/visitors.service';
 import { ContactComponent } from './contact/contact.component';
 import { PostsComponent } from './posts/posts.component';
 import { ContactService } from './shared/services/contactService.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,10 @@ import { ContactService } from './shared/services/contactService.service';
     MatPaginatorModule,
     MatExpansionModule,
     CdkAccordionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    RouterModule.forRoot([
+      {path: 'posts', component:PostsComponent}
+    ],{ onSameUrlNavigation: 'reload' })
   ],
   providers: [
     DbFunctionService,
