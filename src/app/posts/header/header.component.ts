@@ -190,6 +190,7 @@ export class HeaderComponent implements OnInit {
 
   prepareDetailsToPost() {
     this.getipAddress();
+    this.OnPostNewPostToDb();
   }
 
   OnPostNewPostToDb() {
@@ -238,7 +239,7 @@ export class HeaderComponent implements OnInit {
   getipAddress() {
     this.visitorsService.getIpAddress().subscribe((res: any) => {
       this.ipAddress = res.ip;
-      this.OnPostNewPostToDb();
+      // this.OnPostNewPostToDb();
     });
   }
 
