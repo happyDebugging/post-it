@@ -3,4 +3,5 @@ export class ContactDetails {
     Type?: string;
     Title?: string;
     Description?: string;
+    Email?: string;
 }
