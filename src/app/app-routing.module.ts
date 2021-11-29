@@ -3,13 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ContactComponent } from './contact/contact.component';
 import { PostsComponent } from './posts/posts.component';
+import { AuthGuard } from './shared/guards/auth.guard';
+
 
 const routes: Routes = [
-  // {path: 'posts', component: PostsComponent, pathMatch: 'full'},
-  // {path: 'posts',  component: PostsComponent}, 
-  // {path: 'contact',  component: ContactComponent}, 
-  // {path: '', pathMatch: 'full', redirectTo: 'posts'},
-  // {path: '**', redirectTo: '', pathMatch: 'full'}
+  {path: 'posts', canActivate: [AuthGuard], component: PostsComponent, pathMatch: 'full'},
+  {path: 'posts',  component: PostsComponent}, 
+  {path: 'contact',  component: ContactComponent}, 
+  {path: '', pathMatch: 'full', redirectTo: 'posts'},
+  {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
 @NgModule({
