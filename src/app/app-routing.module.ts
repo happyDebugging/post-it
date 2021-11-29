@@ -5,11 +5,11 @@ import { ContactComponent } from './contact/contact.component';
 import { PostsComponent } from './posts/posts.component';
 
 const routes: Routes = [
-  {path: 'posts', component: PostsComponent},
+  //{path: 'posts', component: PostsComponent, pathMatch: 'full'},
   {path: 'posts',  component: PostsComponent}, 
   {path: 'contact',  component: ContactComponent}, 
   {path: '', pathMatch: 'full', redirectTo: 'posts'},
-  {path: '**', redirectTo: '', pathMatch: 'full'}
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
