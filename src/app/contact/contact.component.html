@@ -2,11 +2,15 @@
     <div class="row">
         <div class="col s12">
 
+            <br><br><br><br>
+
+            <h1>Φόρμα επικοινωνίας</h1>
+
             <br><br>
 
             <mat-form-field appearance="fill">
-                <mat-label>Θεματολογία</mat-label>
-                <mat-select [(ngModel)]="contactTypes" [ngModelOptions]="{standalone: true}" ngDefaultControl
+                <mat-label>Επιλογή θεματολογίας</mat-label>
+                <mat-select [(ngModel)]="chosenContactType" [ngModelOptions]="{standalone: true}" ngDefaultControl
                     required>
                     <mat-option *ngFor="let contactType of contactTypes; let i = index;" [value]="contactType">
                         {{contactType}}
@@ -14,11 +18,15 @@
                 </mat-select>
             </mat-form-field>
 
+            <br><br>
+      
             <mat-form-field appearance="fill">
                 <mat-label>Τίτλος θέματος</mat-label>
                 <input matInput placeholder="Θέμα" [(ngModel)]="newIssueTitle" [ngModelOptions]="{standalone: true}"
                     ngDefaultControl required>
             </mat-form-field>
+
+            <br><br>
 
             <mat-form-field appearance="fill">
                 <mat-label>Περιγραφή</mat-label>
@@ -26,8 +34,11 @@
                     [ngModelOptions]="{standalone: true}" ngDefaultControl required maxlength="500"></textarea>
             </mat-form-field>
 
-            <a class="waves-effect waves-light btn" (click)="postIssueToDb()">Αποστολη</a>
+            <a class="waves-effect waves-light btn" (click)="postMessageToDb()">Αποστολη</a>
 
+            <br><br><br><br>
+            <br><br><br><br>
+            <br><br><br><br>
             <br><br><br><br>
 
         </div>

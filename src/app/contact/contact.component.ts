@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { map } from 'rxjs/operators';
-import { AppIssues } from '../shared/models/app-issues.model';
+import { ContactDetails } from '../shared/models/contact-details.model';
 import { ContactService } from '../shared/services/contactService.service';
 
 @Component({
@@ -14,33 +15,52 @@ export class ContactComponent implements OnInit {
   newIssueTitle: string = '';
   newIssueDescription: string = '';
   contactTypes: string[] = ['Αναφορά προβλήματος', 'Προσωπικά δεδομένα'];
-  issues: AppIssues[] = [];
+  chosenContactType: string = '';
+  //contactMessage: ContactDetails[] = [];
   isLoadingResults: boolean = false;
 
-  constructor(private contactService: ContactService) { }
+  constructor(private contactService: ContactService, private successfulPostCreationNotification: MatSnackBar) { }
 
   ngOnInit(): void {
 
   }
 
-  postIssueToDb() {
-    let issue = new AppIssues;
+  postMessageToDb() {
+    let contactMessage = new ContactDetails;
 
-    issue.Title = this.newIssueTitle;
-    issue.Description = this.newIssueDescription;
+    contactMessage.Type = this.chosenContactType;
+    contactMessage.Title = this.newIssueTitle;
+    contactMessage.Description = this.newIssueDescription;
 
-    this.contactService.postNewIssueToDb(issue)
+    this.contactService.postNewIssueToDb(contactMessage)
       .subscribe(
         async (res: any) => {
-          //console.log(res);
+          console.log(res);
           if ((res != null) || (res != undefined)) {
             //const responseData = new Array<AppIssues>(...res);
+            const success = true;
+            this.openSuccessPostSnackBar(success);
           }
         },
         (err: any) => {
           //console.log(err);
         }
       );
+  }
+
+  openSuccessPostSnackBar(success: boolean) {
+    let message = '';
+    let action = '';
+    if (success) {
+      message = 'Επιτυχής αποστολή μηνύματος!';
+      action = 'OK';
+    }
+    else {
+      message = 'Πρόβλημα αποστολής μηνύματος. Προσπαθήστε ξανά.';
+      action = 'OK';
+    }
+
+    this.successfulPostCreationNotification.open(message, action);
   }
 
   async refreshResults() {

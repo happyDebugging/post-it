@@ -133,3 +133,7 @@
     margin: 0;
     font-size: 36px;
    }
+   
+   textarea {
+     min-height: 10rem !important;
+   }

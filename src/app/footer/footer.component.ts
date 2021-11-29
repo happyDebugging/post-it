@@ -17,7 +17,7 @@ export class FooterComponent implements OnInit {
 
   openTermsDialog() {
     const dialogRef = this.dialog.open(this.terms, {
-      width: '40rem'
+      width: '40rem', height: '90%'
     });
   }
 

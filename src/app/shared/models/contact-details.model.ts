@@ -1,5 +1,6 @@
-export class AppIssues {
+export class ContactDetails {
     id?: string;
+    Type?: string;
     Title?: string;
     Description?: string;
 }

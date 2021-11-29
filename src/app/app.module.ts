@@ -24,7 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './posts/header/header.component';
 import { MainComponent } from './posts/main/main.component';
-import { FooterComponent } from './posts/footer/footer.component';
+import { FooterComponent } from './footer/footer.component';
 import { DbFunctionService } from './shared/services/db-functions.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
