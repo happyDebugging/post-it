@@ -37,7 +37,7 @@ export class ContactComponent implements OnInit {
     this.contactService.postNewIssueToDb(contactMessage)
       .subscribe(
         async (res: any) => {
-          console.log(res);
+          //console.log(res);
           if ((res != null) || (res != undefined)) {
             //const responseData = new Array<AppIssues>(...res);
             const success = true;
