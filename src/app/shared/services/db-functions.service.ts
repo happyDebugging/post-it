@@ -21,7 +21,7 @@ export class DbFunctionService {
 
     postNewPostToDb(postItDetails: PostItDetails) {
         let options: any = {
-            //params: {BoardId: boardId, SerialNumber: serialNumber, EventTypeId: eventTypeId, MONumber: moNumber}, 
+            //params: {}, 
             observe: 'response'
         }
         return this.http.post(environment.postItRepoURL, postItDetails, options);
