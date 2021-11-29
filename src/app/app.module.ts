@@ -65,9 +65,6 @@ import { RouterModule } from '@angular/router';
     MatExpansionModule,
     CdkAccordionModule,
     MatSnackBarModule,
-    RouterModule.forRoot([
-      {path: 'posts', component:PostsComponent}
-    ],{ onSameUrlNavigation: 'reload' })
   ],
   providers: [
     DbFunctionService,
