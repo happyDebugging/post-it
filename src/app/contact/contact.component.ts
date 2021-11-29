@@ -16,6 +16,7 @@ export class ContactComponent implements OnInit {
   newIssueDescription: string = '';
   contactTypes: string[] = ['Αναφορά προβλήματος', 'Προσωπικά δεδομένα'];
   chosenContactType: string = '';
+  userEmail: string = '';
   //contactMessage: ContactDetails[] = [];
   isLoadingResults: boolean = false;
 
@@ -31,6 +32,7 @@ export class ContactComponent implements OnInit {
     contactMessage.Type = this.chosenContactType;
     contactMessage.Title = this.newIssueTitle;
     contactMessage.Description = this.newIssueDescription;
+    contactMessage.Email = this.userEmail;
 
     this.contactService.postNewIssueToDb(contactMessage)
       .subscribe(
