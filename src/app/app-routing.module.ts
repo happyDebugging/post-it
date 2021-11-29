@@ -4,10 +4,10 @@ import { AppComponent } from './app.component';
 import { ContactComponent } from './contact/contact.component';
 import { PostsComponent } from './posts/posts.component';
 import { AuthGuard } from './shared/guards/auth.guard';
-
+import { AuthResolver } from './shared/guards/auth.resolver';
 
 const routes: Routes = [
-  {path: 'posts', canActivate: [AuthGuard], component: PostsComponent, pathMatch: 'full'},
+  {path: 'posts', resolve: { AuthResolver }, component: PostsComponent, pathMatch: 'full'},
   {path: 'posts',  component: PostsComponent}, 
   {path: 'contact',  component: ContactComponent}, 
   {path: '', pathMatch: 'full', redirectTo: 'posts'},
