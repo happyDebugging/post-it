@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PostItDetails } from '../shared/models/post-it-details.model';
-import { DbFunctionService } from '../shared/services/db-functions.service';
+import { PostItDetails } from '../../shared/models/post-it-details.model';
+import { DbFunctionService } from '../../shared/services/db-functions.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { Jobs } from '../shared/models/jobs.model';
-import { WorkingPlaces } from '../shared/models/working-places.model';
+import { Jobs } from '../../shared/models/jobs.model';
+import { WorkingPlaces } from '../../shared/models/working-places.model';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-main',

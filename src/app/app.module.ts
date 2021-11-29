@@ -22,13 +22,16 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { NavComponent } from './nav/nav.component';
-import { HeaderComponent } from './header/header.component';
-import { MainComponent } from './main/main.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './posts/header/header.component';
+import { MainComponent } from './posts/main/main.component';
+import { FooterComponent } from './posts/footer/footer.component';
 import { DbFunctionService } from './shared/services/db-functions.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { VisitorsService } from './shared/services/visitors.service';
+import { ContactComponent } from './contact/contact.component';
+import { PostsComponent } from './posts/posts.component';
+import { ContactService } from './shared/services/contactService.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { VisitorsService } from './shared/services/visitors.service';
     NavComponent,
     HeaderComponent,
     MainComponent,
-    FooterComponent
+    FooterComponent,
+    ContactComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +67,8 @@ import { VisitorsService } from './shared/services/visitors.service';
   ],
   providers: [
     DbFunctionService,
-    VisitorsService
+    VisitorsService,
+    ContactService
   ],
   bootstrap: [AppComponent]
 })

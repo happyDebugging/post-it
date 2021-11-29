@@ -7,4 +7,6 @@ export const environment = {
   jobNamesTable: '/jobNames.json',
   workingPlacesTable: '/workingPlaces.json',
   visitorsTable: '/visitors.json',
+  issuesTable: '/issues.json',
+  userRequestsTable: '/userRequests.json',
 };

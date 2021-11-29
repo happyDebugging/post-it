@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { Jobs } from '../shared/models/jobs.model';
-import { PostItDetails } from '../shared/models/post-it-details.model';
-import { WorkingPlaces } from '../shared/models/working-places.model';
-import { DbFunctionService } from '../shared/services/db-functions.service';
+import { Jobs } from '../../shared/models/jobs.model';
+import { PostItDetails } from '../../shared/models/post-it-details.model';
+import { WorkingPlaces } from '../../shared/models/working-places.model';
+import { DbFunctionService } from '../../shared/services/db-functions.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { VisitorsService } from '../shared/services/visitors.service';
+import { VisitorsService } from '../../shared/services/visitors.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import { DialogueComponent } from './dialogue/dialogue.component';
 

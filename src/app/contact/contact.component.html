@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+
+            <br><br>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Θεματολογία</mat-label>
+                <mat-select [(ngModel)]="contactTypes" [ngModelOptions]="{standalone: true}" ngDefaultControl
+                    required>
+                    <mat-option *ngFor="let contactType of contactTypes; let i = index;" [value]="contactType">
+                        {{contactType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Τίτλος θέματος</mat-label>
+                <input matInput placeholder="Θέμα" [(ngModel)]="newIssueTitle" [ngModelOptions]="{standalone: true}"
+                    ngDefaultControl required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Περιγραφή</mat-label>
+                <textarea matInput placeholder="Περιγραφή προβλήματος" [(ngModel)]="newIssueDescription"
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl required maxlength="500"></textarea>
+            </mat-form-field>
+
+            <a class="waves-effect waves-light btn" (click)="postIssueToDb()">Αποστολη</a>
+
+            <br><br><br><br>
+
+        </div>
+    </div>
+</div>
