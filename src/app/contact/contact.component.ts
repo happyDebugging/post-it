@@ -62,7 +62,9 @@ export class ContactComponent implements OnInit {
       action = 'OK';
     }
 
-    this.successfulPostCreationNotification.open(message, action);
+    this.successfulPostCreationNotification.open(message, action, {
+      duration: 5000
+    });
   }
 
   async refreshResults() {

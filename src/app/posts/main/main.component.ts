@@ -157,8 +157,9 @@ export class MainComponent implements OnInit {
   openNeededFieldsWarningSnackBar() {
     let message = 'Τα υποχρεωτικά πεδία δεν μπορούν να είναι κενά.';
     let action = 'OK';
-   
-    this.successfulPostCreationNotification.open(message, action);
+    this.successfulPostCreationNotification.open(message, action, {
+      duration: 5000
+    });
   }
 
   openSuccessPostSnackBar(success: boolean) {
@@ -173,7 +174,9 @@ export class MainComponent implements OnInit {
       action = 'OK';
     }
 
-    this.successfulPostCreationNotification.open(message, action);
+    this.successfulPostCreationNotification.open(message, action, {
+      duration: 5000
+    });
   }
 
   onClearNewPostModalData(postItDetails: PostItDetails) {
