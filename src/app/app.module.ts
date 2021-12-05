@@ -20,6 +20,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './posts/header/header.component';
@@ -65,6 +66,7 @@ import { RouterModule } from '@angular/router';
     MatExpansionModule,
     CdkAccordionModule,
     MatSnackBarModule,
+    MatMenuModule
   ],
   providers: [
     DbFunctionService,
