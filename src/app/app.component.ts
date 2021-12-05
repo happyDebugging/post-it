@@ -25,7 +25,7 @@ export class AppComponent {
     // this.dateFormat(this.currentDateTime, "dd/mm/yy, hh:MM:ss");
 
     this.firstLoad=true;
-    this.getVisitorDetails();
+    //this.getVisitorDetails();
   }
 
   getVisitorDetails() {
