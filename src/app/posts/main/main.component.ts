@@ -224,7 +224,7 @@ export class MainComponent implements OnInit {
             jobsArray.push({ ...response[key], id: key })
           }
         }
-        return jobsArray;
+        return jobsArray.reverse();
       }))
       .subscribe(
         (res: any) => {
@@ -262,7 +262,7 @@ export class MainComponent implements OnInit {
             placesArray.push({ ...response[key], id: key })
           }
         }
-        return placesArray;
+        return placesArray.reverse();
       }))
       .subscribe(
         (res: any) => {
