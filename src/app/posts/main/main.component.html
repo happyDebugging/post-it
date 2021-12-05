@@ -1,8 +1,43 @@
-<div #topOfPage class="brown lighten-5">
+<div #topOfPage class="section white header-section">
+  <div class="container-fluid">
+
+      <!-- <nav class="transparent-element z-depth-0">
+          <div class="nav-wrapper container">
+              <a href="#" class="brand-logo">
+                  <h1>Post-it</h1>
+              </a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+              </ul>
+          </div>
+      </nav> -->
+
+      <div class="transparent-element">
+          <br><br><br>
+          <h2 class="header center">Αναζητάς δουλειά; Καρφίτσωσε ένα post!</h2>
+
+          <br>
+
+          <div class="container">
+              <form class="col s12">
+                  <div class="row center">
+                      <a class="waves-effect waves-light btn-large" (click)="openDialog()">+ Δημιουργια Αγγελιας</a>
+                  </div>
+                  <!-- <h2 class="center white-text">ή</h2> -->
+              </form>
+          </div>
+
+          <br><br>
+      </div>
+
+  </div>
+</div>
+
+<div class="brown lighten-5">
 
   <mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="panelOpenState === true">
-      <mat-expansion-panel-header>
+    <mat-expansion-panel (opened)="panelOpenState === true" (closed)="panelOpenState === false" [expanded]="panelOpenState === true">
+      <mat-expansion-panel-header (click)="saveFilterAccordionState()">
         <mat-panel-description class="center">
           <h2 class="center">Αναζήτηση με βάση λέξεις-κλειδιά</h2>
         </mat-panel-description>
@@ -135,3 +170,109 @@
   <!-- <a class="sticky" (click)="scrollToTopOfPage(topOfPage)"><mat-icon [inline]="true">keyboard_arrow_up</mat-icon></a> -->
 
 </div>
+
+<ng-template #occurredAt let-modal>
+  <div class="row">
+      <div class="col s11">
+          <h1 mat-dialog-title>Δημιουργία νέας αγγελίας</h1>
+      </div>
+      <div class="col s1">
+          <button class="transparent-button" mat-button mat-icon-button mat-dialog-close aria-label="Clear">
+              <mat-icon>close</mat-icon>
+          </button>
+      </div>
+  </div>
+
+  <div mat-dialog-content>
+
+      <div class="row center">
+          <div class="col s12">
+              <!-- <form class="form" #form="ngForm" [appMatchPassword]="['password', 'confirmPassword']"
+                  (ngSubmit)="registerForm.form.valid && onSubmit()" novalidate> -->
+              <mat-form-field appearance="fill">
+                  <mat-label>Είδος Αγγελίας</mat-label>
+                  <mat-select [(ngModel)]="jobSearchType" [ngModelOptions]="{standalone: true}" ngDefaultControl
+                      required>
+                      <mat-option *ngFor="let searchType of jobSearchTypes; let i = index;" [value]="searchType">
+                          {{searchType}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                  <mat-label>Επάγγελμα</mat-label>
+                  <input matInput [(ngModel)]="jobName" [matAutocomplete]="autoJobName"
+                      (ngModelChange)="applyJobFilter($event)" [ngModelOptions]="{standalone: true}" ngDefaultControl
+                      required />
+                  <button mat-button *ngIf="jobName" matSuffix mat-icon-button aria-label="Clear"
+                      (click)="jobName=''">
+                      <mat-icon>close</mat-icon>
+                  </button>
+                  <mat-autocomplete #autoJobName="matAutocomplete">
+                      <mat-option *ngFor="let job of filteredJobTypes" [value]="job.JobName">
+                          {{ job.JobName }}
+                      </mat-option>
+                  </mat-autocomplete>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                  <mat-label>Περιοχή</mat-label>
+                  <input matInput [(ngModel)]="placeName" [matAutocomplete]="autoPlace"
+                      (ngModelChange)="applyPlacesFilter($event)" [ngModelOptions]="{standalone: true}"
+                      ngDefaultControl required />
+                  <button mat-button *ngIf="placeName" matSuffix mat-icon-button aria-label="Clear" (click)="placeName=''">
+                      <mat-icon>close</mat-icon>
+                  </button>
+                  <mat-autocomplete #autoPlace="matAutocomplete">
+                      <mat-option *ngFor="let workingPlace of filteredWorkingPlaces" [value]="workingPlace.Place">
+                          {{ workingPlace.Place }}
+                      </mat-option>
+                  </mat-autocomplete>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                  <mat-label>Όνομα</mat-label>
+                  <input matInput placeholder="Όνομα" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}"
+                      ngDefaultControl maxlength="30">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                  <mat-label>Τηλέφωνο</mat-label>
+                  <input matInput placeholder="Τηλέφωνο" [(ngModel)]="userPhone" [ngModelOptions]="{standalone: true}"
+                      ngDefaultControl maxlength="12">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Email" [(ngModel)]="userEmail" [ngModelOptions]="{standalone: true}"
+                      ngDefaultControl required email maxlength="50">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                  <mat-label>Περιγραφή αγγελίας</mat-label>
+                  <textarea matInput placeholder="Περιγραφή αγγελίας" [(ngModel)]="userPost"
+                      [ngModelOptions]="{standalone: true}" ngDefaultControl required maxlength="800"></textarea>
+              </mat-form-field>
+              <!-- </form> -->
+          </div>
+      </div>
+
+
+  </div>
+  <div mat-dialog-actions>
+
+      <div class="section row right-align">
+          <div class="col s6 m8 l11">
+              <button class="waves-effect waves-light btn-large grey lighten-1" mat-dialog-close>
+                  Ακύρωση
+              </button>
+          </div>
+          <div class="col s6 m4 l1">
+              <button class="waves-effect waves-light btn-large" (click)="prepareDetailsToPost()"> 
+                  Δημιουργία
+              </button>
+          </div>
+      </div>
+
+  </div>
+</ng-template>
