@@ -54,9 +54,9 @@
               <mat-form-field appearance="fill">
                 <mat-label>Είδος Αγγελίας</mat-label>
                 <mat-select [(ngModel)]="jobType">
-                  <mat-option *ngFor="let jobSearchType of jobSearchTypes" [value]="jobSearchType"
+                  <mat-option *ngFor="let jobSearchType of jobSearchTypes; let i = index;" [value]="jobSearchType"
                     (click)="refreshResults()">
-                    {{jobSearchType}}
+                    {{jobSearchTypes[1-i]}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
