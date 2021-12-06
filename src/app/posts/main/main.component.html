@@ -28,7 +28,7 @@
       </div>
 
       <br><br>
-      
+
     </div>
 
   </div>
@@ -112,6 +112,12 @@
 
 <div class="section lime lighten-5 main-section">
   <div class="container">
+
+    <div *ngIf="isLoadingResults">
+      <br><br>
+      <h2 class="center">Περιμένετε...</h2>
+      <br>
+    </div>
 
     <div *ngIf="posts.length === 0 && !isLoadingResults">
       <br><br>
