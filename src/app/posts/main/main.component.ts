@@ -18,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MainComponent implements OnInit {
 
   @ViewChild('occurredAt') occurredAt: any;
+  screenWidth?: any;
 
   userName: string = '';
   userPhone: string = '';
@@ -82,9 +83,18 @@ export class MainComponent implements OnInit {
 
   /////////
   openDialog() {
-    this.dialogRef = this.dialog.open(this.occurredAt, {
-      width: '50rem'
-    });
+    this.screenWidth = window.innerWidth;
+
+    if (this.screenWidth > 600) {
+      this.dialogRef = this.dialog.open(this.occurredAt, {
+        width: '50rem', height: '85%'
+      });
+    }
+    else {
+      this.dialogRef = this.dialog.open(this.occurredAt, {
+        width: '50rem', height: '55%', maxHeight: '100%', position: { top: `30px` }
+      });
+    }
 
     this.dialogRef.afterClosed().subscribe((result: any) => {
       //console.log('');
