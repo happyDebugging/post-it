@@ -26,28 +26,41 @@ export class ContactComponent implements OnInit {
 
   }
 
+  openNeededFieldsWarningSnackBar() {
+    let message = 'Τα υποχρεωτικά πεδία δεν μπορούν να είναι κενά.';
+    let action = 'OK';
+    this.successfulPostCreationNotification.open(message, action, {
+      duration: 5000
+    });
+  }
+
   postMessageToDb() {
-    let contactMessage = new ContactDetails;
+    if (this.chosenContactType == '' || this.userEmail == '' || this.newIssueTitle == '' || this.newIssueDescription == '') {
+      this.openNeededFieldsWarningSnackBar();
+    }
+    else {
+      let contactMessage = new ContactDetails;
 
-    contactMessage.Type = this.chosenContactType;
-    contactMessage.Title = this.newIssueTitle;
-    contactMessage.Description = this.newIssueDescription;
-    contactMessage.Email = this.userEmail;
+      contactMessage.Type = this.chosenContactType;
+      contactMessage.Title = this.newIssueTitle;
+      contactMessage.Description = this.newIssueDescription;
+      contactMessage.Email = this.userEmail;
 
-    this.contactService.postNewIssueToDb(contactMessage)
-      .subscribe(
-        async (res: any) => {
-          //console.log(res);
-          if ((res != null) || (res != undefined)) {
-            //const responseData = new Array<AppIssues>(...res);
-            const success = true;
-            this.openSuccessPostSnackBar(success);
+      this.contactService.postNewIssueToDb(contactMessage)
+        .subscribe(
+          async (res: any) => {
+            //console.log(res);
+            if ((res != null) || (res != undefined)) {
+              //const responseData = new Array<AppIssues>(...res);
+              const success = true;
+              this.openSuccessPostSnackBar(success);
+            }
+          },
+          (err: any) => {
+            //console.log(err);
           }
-        },
-        (err: any) => {
-          //console.log(err);
-        }
-      );
+        );
+    }
   }
 
   openSuccessPostSnackBar(success: boolean) {

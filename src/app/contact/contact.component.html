@@ -9,7 +9,7 @@
             <br><br>
 
             <div class="row">
-                <div class="col s6">
+                <div class="col s12 m12 l6">
                     <mat-form-field appearance="fill">
                         <mat-label>Επιλογή θεματολογίας</mat-label>
                         <mat-select [(ngModel)]="chosenContactType" [ngModelOptions]="{standalone: true}"
@@ -20,7 +20,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col s6">
+                <div class="col s12 m12 l6">
                     <mat-form-field appearance="fill">
                         <mat-label>Email</mat-label>
                         <input matInput placeholder="Email" [(ngModel)]="userEmail"
@@ -40,7 +40,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Περιγραφή</mat-label>
                 <textarea matInput placeholder="Περιγραφή προβλήματος" [(ngModel)]="newIssueDescription"
-                    [ngModelOptions]="{standalone: true}" ngDefaultControl required maxlength="500"></textarea>
+                    [ngModelOptions]="{standalone: true}" ngDefaultControl required maxlength="1000"></textarea>
             </mat-form-field>
 
             <a class="waves-effect waves-light btn" (click)="postMessageToDb()">Αποστολη</a>
