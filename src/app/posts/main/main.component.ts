@@ -92,7 +92,7 @@ export class MainComponent implements OnInit {
     }
     else {
       this.dialogRef = this.dialog.open(this.occurredAt, {
-        width: '50rem', height: '55%', maxHeight: '100%', position: { top: `30px` }
+        width: '50rem', height: '65%', maxHeight: '100%', position: { top: `30px` }
       });
     }
 
