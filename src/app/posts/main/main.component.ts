@@ -102,7 +102,28 @@ export class MainComponent implements OnInit {
   }
 
   prepareDetailsToPost() {
-    if (this.jobSearchType == '' || this.jobName == '' || this.placeName == '' || this.userEmail == '' || this.userPost == '') {
+    let jobflag = false;
+    let placeflag = false;
+
+    for (const data of this.jobNamesList) {
+      if (this.jobName === data.JobName) {
+        jobflag = true;
+      }
+    }
+
+    for (const data of this.workingPlacesList) {
+      if (this.placeName === data.Place) {
+        placeflag = true;
+      }
+    }
+
+    if (!jobflag) {
+      this.openNonMatxhingJobNameWarningSnackBar();
+    }
+    else if (!placeflag) {
+      this.openNonMatxhingPlaceNameWarningSnackBar();
+    }
+    else if (this.jobSearchType == '' || this.jobName == '' || this.placeName == '' || this.userEmail == '' || this.userPost == '') {
       this.openNeededFieldsWarningSnackBar();
     }
     else {
@@ -163,6 +184,23 @@ export class MainComponent implements OnInit {
       // this.OnPostNewPostToDb();
     });
   }
+
+  openNonMatxhingJobNameWarningSnackBar() {
+    let message = 'Ελέγξτε την ορθογραφία του πεδίου "Εργασία".';
+    let action = 'OK';
+    this.successfulPostCreationNotification.open(message, action, {
+      duration: 5000
+    });
+  }
+
+  openNonMatxhingPlaceNameWarningSnackBar() {
+    let message = 'Ελέγξτε την ορθογραφία του πεδίου "Περιοχή".';
+    let action = 'OK';
+    this.successfulPostCreationNotification.open(message, action, {
+      duration: 5000
+    });
+  }
+
 
   openNeededFieldsWarningSnackBar() {
     let message = 'Τα υποχρεωτικά πεδία δεν μπορούν να είναι κενά.';
