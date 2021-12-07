@@ -288,7 +288,7 @@ export class MainComponent implements OnInit {
 
               resObj.Id = data.Id;
               resObj.Category = data.Category;
-              resObj.JobName = data.JobName;
+              resObj.JobName = data.JobName.trim();
 
               this.jobNamesList.push(resObj);
             }
@@ -325,7 +325,7 @@ export class MainComponent implements OnInit {
               const resObj = new WorkingPlaces();
 
               resObj.Id = data.Id;
-              resObj.Place = data.Place;
+              resObj.Place = data.Place.trim();
 
               this.workingPlacesList.push(resObj);
             }
